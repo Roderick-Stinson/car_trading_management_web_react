@@ -4,6 +4,7 @@ import Search from "antd/es/input/Search";
 
 import {CarInfo, OrderInfo} from "../components/Info";
 import {useState} from "react";
+import {AddCar} from "../components/AddInfo";
 
 const CarManagement = () => {
 
@@ -27,6 +28,19 @@ const CarManagement = () => {
     };
     const handleCancel = () => {
         setIsModalVisible(false);
+    };
+
+    //添加车辆的弹窗显示关闭
+    const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const showModalAdd = () => {
+        setIsModalVisibleAdd(true);
+    };
+    const handleOkAdd = () => {
+        setIsModalVisibleAdd(false);
+        message.success('添加成功！');
+    };
+    const handleCancelAdd = () => {
+        setIsModalVisibleAdd(false);
     };
 
     const columns = [
@@ -72,6 +86,7 @@ const CarManagement = () => {
                         onCancel={cancel}
                         okText="确认"
                         cancelText="取消"
+
                     >
                         <a href="#">删除</a>
                     </Popconfirm>,
@@ -99,7 +114,7 @@ const CarManagement = () => {
                 <Col>
                 </Col>
                 <Search  placeholder="请输入车辆ID" style={{width: '200px',marginTop : "15px",marginLeft : "1000px"}} allowClear enterButton />
-                <Button type="primary" style={{marginLeft : "30px"}}>
+                <Button type="primary" style={{marginLeft : "30px"}} onClick={showModalAdd} >
                     添加车辆
                 </Button>
                 <Button type="primary" style={{marginLeft : "30px"}}>
@@ -111,6 +126,9 @@ const CarManagement = () => {
             </Content>
             <>
                 <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} ></CarInfo>
+            </>
+            <>
+                <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}></AddCar>
             </>
         </Layout>
 

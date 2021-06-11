@@ -1,6 +1,9 @@
 import Modal from "antd/es/modal/Modal";
-import {Descriptions, Form, Input} from "antd";
+import {Col, DatePicker, Descriptions, Form, Input, InputNumber, Select, Upload} from "antd";
+import Row from "antd/es/descriptions/Row";
+import {Option} from "antd/es/mentions";
 
+import {UploadPicture} from "./UploadPicture"
 
 export const AddUser = ({visible,handleOk, handleCancel}) => {
 
@@ -61,6 +64,105 @@ export const AddUser = ({visible,handleOk, handleCancel}) => {
                     >
                         <Input  placeholder="请输入手机号"/>
                     </Form.Item>
+                </Form>
+
+            </Modal>
+        </>
+    )
+}
+
+export const AddCar = ({visible,handleOk, handleCancel}) => {
+
+    const [form] = Form.useForm();
+    return (
+        <>
+            <Modal
+                visible={visible}
+                title="添加车辆"
+                centered
+                onCancel={handleCancel}
+                onOk={() => {
+                    form.validateFields()
+                        .then(() => {
+                            handleOk()
+                        })
+                }
+                }
+            >
+                <Form
+                    form={form}
+                    layout="vertical"
+                    name="AddCar"
+                >
+                    <Form.Item
+                        label={"车名："}
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: '车名不能为空',
+                            },
+                        ]}
+                    >
+                        <Input  placeholder="请输入车名"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"报价："}
+                        name="price"
+                        rules={[
+                            {
+                                required: true,
+                                message: '报价不能为空',
+                            },
+                        ]}
+                    >
+                        <Input suffix="万"  />
+                    </Form.Item>
+                    <Form.Item
+                        label={"品牌："}
+                        name="brand"
+                        rules={[
+                            {
+                                required: true,
+                                message: '品牌不能为空',
+                            },
+                        ]}
+                    >
+                        <Input  placeholder="请输入车辆品牌"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"上牌时间："}
+                        name="regDate"
+                    >
+                        <DatePicker />
+                    </Form.Item>
+                    <Form.Item
+                        label={"行驶里程："}
+                        name="mileage"
+                        rules={[
+                            {
+                                required: true,
+                                message: '行驶里程不能为空',
+                            },
+                        ]}
+                    >
+                        <Input  placeholder="请输入车辆行驶里程"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"变速箱："}
+                        name="gearBox"
+                    >
+                        <Select defaultValue="自动" style={{ width: 120 }}>
+                            <Option value="auto">自动</Option>
+                            <Option value="manual">手动</Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        label={"请上传车辆图片："}
+                    >
+                        <UploadPicture></UploadPicture>
+                    </Form.Item>
+
                 </Form>
 
             </Modal>
