@@ -27,7 +27,6 @@ function App() {
                 <Route component={CarManagement} exact={true} path={'/CarManagement'}/>
                 <Route component={OrderManagement} exact={true} path={'/OrderManagement'}/>
             </Content>
-            <Footer></Footer>
         </Layout>
     </Layout>
     </Router>
