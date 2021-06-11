@@ -2,8 +2,10 @@ import {Button, Col, Popconfirm, Space, message, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 import Search from "antd/es/input/Search";
 
-import {CarInfo, OrderInfo} from "../components/Info";
-import {useState} from "react";
+
+import {CarInfo} from "../components/Info";
+import {useEffect, useState} from "react";
+import axios from "axios";
 import {AddCar} from "../components/AddInfo";
 
 const CarManagement = () => {
@@ -95,18 +97,26 @@ const CarManagement = () => {
         },
     ];
 
-    const data = [
-        {
-            key: '1',
-            id:'001',
-            brand:'大众',
-            name:'大众-高尔夫_2018款_1.8L_自动舒适型_2018年03月_0',
-            sellUser: '张三',
-            sellPhone:'18008384132',
-            price:'2.4万',
-        },
+    const [data, setData] = useState([]);
 
-    ];
+    useEffect(() => {
+        let loadData = []
+        axios.get('/api/car/list', {params: {count: 50}})
+            .then(res => {
+                res['data'].forEach(item => {
+                    loadData.push({
+                        key: item['id'],
+                        id: item['id'],
+                        brand: item['name'],
+                        name: item['name'],
+                        sellUser: 'unknown',
+                        sellPhone: 'unknown',
+                        price: item['price']
+                    })
+                })
+                setData(loadData)
+            })
+    }, [])
 
     return (
         <Layout style={{background: "white"}}>
@@ -125,14 +135,12 @@ const CarManagement = () => {
                 <Table columns={columns} dataSource={data} />
             </Content>
             <>
-                <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} ></CarInfo>
+                <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} />
             </>
             <>
                 <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}></AddCar>
             </>
         </Layout>
-
-
     )
 }
 
