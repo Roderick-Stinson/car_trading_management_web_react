@@ -119,7 +119,7 @@ const CarManagement = () => {
                 <Table columns={columns} dataSource={data} />
             </Content>
             <>
-                <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} ></CarInfo>
+                <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} />
             </>
         </Layout>
     )
