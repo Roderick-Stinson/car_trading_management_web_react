@@ -18,10 +18,7 @@ export const UserInfo = ({visible,handleOk, handleCancel}) => {
                     <Descriptions.Item label="用户名">Zhou Maomao</Descriptions.Item>
                     <Descriptions.Item label="手机号">1810000000</Descriptions.Item>
                     <Descriptions.Item label="注册时间">2020/06/07-16:37:54</Descriptions.Item>
-                    <Descriptions.Item label="Address" span={2}>
-                        No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Remark">empty</Descriptions.Item>
+                    <Descriptions.Item label="订单数">5</Descriptions.Item>
                 </Descriptions>,
             </Modal>
         </>

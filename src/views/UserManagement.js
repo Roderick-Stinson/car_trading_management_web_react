@@ -2,7 +2,9 @@ import {Button, Col, message, Popconfirm, Space, Table, Tag} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 import Search from "antd/es/input/Search";
 
-import {OrderInfo, UserInfo} from "../components/Info";
+import {UserInfo} from "../components/Info";
+import {AddUser} from "../components/AddInfo";
+
 import {useState} from "react";
 
 const UserManagement = () => {
@@ -28,7 +30,18 @@ const UserManagement = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
+    //添加用户的弹窗显示关闭
+    const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const showModalAdd = () => {
+        setIsModalVisibleAdd(true);
+    };
+    const handleOkAdd = () => {
+        setIsModalVisibleAdd(false);
+        message.success('添加成功！');
+    };
+    const handleCancelAdd = () => {
+        setIsModalVisibleAdd(false);
+    };
 
     const columns = [
         {
@@ -101,7 +114,7 @@ const UserManagement = () => {
                 <Col>
                 </Col>
                 <Search  placeholder="请输入用户名" style={{width: '200px',marginTop : "15px",marginLeft : "1000px"}} allowClear enterButton />
-                <Button type="primary" style={{marginLeft : "30px"}}>
+                <Button type="primary" style={{marginLeft : "30px"}} onClick={showModalAdd} >
                     添加用户
                 </Button>
                 <Button type="primary" style={{marginLeft : "30px"}}>
@@ -115,6 +128,10 @@ const UserManagement = () => {
             <>
                 <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} ></UserInfo>
             </>
+            <>
+                <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}></AddUser>
+            </>
+
         </Layout>
 
 

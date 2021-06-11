@@ -44,6 +44,11 @@ const OrderManagement = () => {
             key: 'state',
         },
         {
+            title: '车辆ID',
+            dataIndex: 'carId',
+            key: 'carId',
+        },
+        {
             title: '卖家',
             dataIndex: 'sellUser',
             key: 'sellUser',
@@ -103,6 +108,7 @@ const OrderManagement = () => {
             key: '1',
             time:'2020/06/07-16:37:54',
             id:'001',
+            carId:'123',
             state:'交易中',
             sellUser: '张三',
             buyUser: '李四',
@@ -116,6 +122,7 @@ const OrderManagement = () => {
             key: '2',
             time:'2020/06/07-16:37:54',
             id:'002',
+            carId:'123',
             state:'已完成',
             sellUser: '张三',
             buyUser: '李四',
