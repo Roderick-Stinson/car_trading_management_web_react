@@ -87,7 +87,6 @@ const CarManagement = () => {
         let loadData = []
         axios.get('/api/car/list', {params: {count: 50}})
             .then(res => {
-                console.log(res)
                 res['data'].forEach(item => {
                     loadData.push({
                         key: item['id'],

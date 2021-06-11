@@ -1,18 +1,38 @@
-import {Link} from 'react-router-dom'
-import {Col,Menu, Row} from 'antd';
+import {Link, useHistory} from 'react-router-dom'
+import {Col, Menu, Row} from 'antd';
 import {WalletOutlined, TransactionOutlined, AppstoreOutlined} from '@ant-design/icons';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
+    const history = useHistory()
+    const [route, setRoute] = useState(history.location.pathname);
 
     const handleClick = (e) => {
         setCurrent(e.key)
     }
 
+    useEffect(() => {
+        switch (route) {
+            case '/CarManagement':
+                setCurrent('sell')
+                break;
+            case '/orderManagement':
+                setCurrent('order')
+                break
+            case '':
+                setCurrent('')
+                break
+        }
+    }, [route])
+
+    history.listen(route => {
+        setRoute(route.pathname)
+    })
+
     return (
         <Row style={{background: "white"}} justify="space-around" align="middle">
-            <Col span={23} >
+            <Col span={23}>
                 <Menu
                     onClick={handleClick}
                     selectedKeys={[current]}
