@@ -1,12 +1,12 @@
-import {message, Popconfirm, Space, Table} from "antd";
+import {Button, message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 
 
 import {CarInfo} from "../components/Info";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {SearchBar} from "../components/SearchBar";
 import {AddCar} from "../components/AddInfo";
+import CarSvc from "../services/car"
 
 const CarManagement = () => {
 
@@ -81,7 +81,7 @@ const CarManagement = () => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={showModal}>查看详情</a>
+                    <Button type="link" onClick={showModal}>查看详情</Button>
                     <Popconfirm
                         title="您确定要删除该条数据?"
                         onConfirm={confirm}
@@ -89,8 +89,8 @@ const CarManagement = () => {
                         okText="确认"
                         cancelText="取消"
                     >
-                        <a href="#">删除</a>
-                    </Popconfirm>,
+                        <Button type="link" href="#">删除</Button>
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -100,21 +100,20 @@ const CarManagement = () => {
 
     useEffect(() => {
         let loadData = []
-        axios.get('/api/car/list', {params: {count: 50}})
-            .then(res => {
-                res['data'].forEach(item => {
-                    loadData.push({
-                        key: item['id'],
-                        id: item['id'],
-                        brand: item['name'],
-                        name: item['name'],
-                        sellUser: 'unknown',
-                        sellPhone: 'unknown',
-                        price: item['price']
-                    })
+        CarSvc.getAll().then(initCars => {
+            initCars.forEach(item => {
+                loadData.push({
+                    key: item['id'],
+                    id: item['id'],
+                    brand: item['name'],
+                    name: item['name'],
+                    sellUser: 'unknown',
+                    sellPhone: 'unknown',
+                    price: item['price']
                 })
-                setData(loadData)
             })
+            setData(loadData)
+        })
     }, [])
 
     return (

@@ -1,4 +1,4 @@
-import {message, Popconfirm, Space, Table} from "antd";
+import {Button, message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 
 import {OrderInfo} from "../components/Info"
@@ -88,7 +88,7 @@ const OrderManagement = () => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={showModal}>查看详情</a>
+                    <Button type="link" onClick={showModal}>查看详情</Button>
                     <Popconfirm
                         title="您确定要删除该条数据?"
                         onConfirm={confirm}
@@ -96,8 +96,8 @@ const OrderManagement = () => {
                         okText="确认"
                         cancelText="取消"
                     >
-                        <a href="#">删除</a>
-                    </Popconfirm>,
+                        <Button type="link" href="#">删除</Button>
+                    </Popconfirm>
                 </Space>
             ),
         },

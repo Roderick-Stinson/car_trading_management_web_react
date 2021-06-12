@@ -1,6 +1,5 @@
 import Modal from "antd/es/modal/Modal";
-import {Col, DatePicker, Descriptions, Form, Input, InputNumber, Select, Upload} from "antd";
-import Row from "antd/es/descriptions/Row";
+import {DatePicker, Form, Input, Select} from "antd";
 import {Option} from "antd/es/mentions";
 
 import {UploadPicture} from "./UploadPicture"

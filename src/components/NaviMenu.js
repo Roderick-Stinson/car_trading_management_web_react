@@ -23,6 +23,9 @@ const NaviMenu = () => {
             case '':
                 setCurrent('')
                 break
+            default:
+                setCurrent('')
+                break
         }
     }, [route])
 
