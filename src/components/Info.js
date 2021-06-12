@@ -1,5 +1,5 @@
 import Modal from "antd/es/modal/Modal";
-import {Button, Descriptions, Input, Popover} from "antd";
+import {Descriptions} from "antd";
 import {EditableField} from "./EditableField";
 
 export const UserInfo = ({visible, handleOk, handleCancel}) => {
@@ -40,24 +40,24 @@ export const CarInfo = ({visible, handleOk, handleCancel}) => {
             >
                 <Descriptions layout="vertical">
                     <Descriptions.Item label="车名"> <EditableField
-                        field={"your before string"}
+                        value={"your before string"}
                     />
                     </Descriptions.Item>
                     <Descriptions.Item label="报价"> <EditableField
-                        field={"your before string"}
+                        value={"your before string"}
                     />
                     </Descriptions.Item>
 
                     <Descriptions.Item label="品牌"> <EditableField
-                        field={"your before string"}
+                        value={"your before string"}
                     />
                     </Descriptions.Item>
                     <Descriptions.Item label="上牌时间"> <EditableField
-                        field={"your before string"}
+                        value={"your before string"}
                     />
                     </Descriptions.Item>
                     <Descriptions.Item label="行驶里程"> <EditableField
-                        field={"your before string"}
+                        value={"your before string"}
                     />
                     </Descriptions.Item>
                 </Descriptions>

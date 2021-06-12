@@ -1,11 +1,12 @@
-import {Button, Col, message, Popconfirm, Space, Table, Tag} from "antd";
+import {message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 import Search from "antd/es/input/Search";
 
 import {UserInfo} from "../components/Info";
-import {AddUser} from "../components/AddInfo";
+import {UserInfo} from "../components/Info";
 
 import {useState} from "react";
+import {SearchBar} from "../components/SearchBar";
 
 const UserManagement = () => {
 
@@ -111,15 +112,7 @@ const UserManagement = () => {
     return (
         <Layout style={{background: "white"}}>
             <Header style={{background: "white"}}>
-                <Col>
-                </Col>
-                <Search  placeholder="请输入用户名" style={{width: '200px',marginTop : "15px",marginLeft : "1000px"}} allowClear enterButton />
-                <Button type="primary" style={{marginLeft : "30px"}} onClick={showModalAdd} >
-                    添加用户
-                </Button>
-                <Button type="primary" style={{marginLeft : "30px"}}>
-                    导出csv
-                </Button>
+                <SearchBar placeHolder="请输入用户名"/>
             </Header>
             <Content style={{background: "white"}}>
                 <Table columns={columns} dataSource={data} />

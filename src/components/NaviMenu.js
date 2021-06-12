@@ -1,6 +1,6 @@
 import {Link, useHistory} from 'react-router-dom'
 import {Col, Menu, Row} from 'antd';
-import {WalletOutlined, TransactionOutlined, AppstoreOutlined} from '@ant-design/icons';
+import {AppstoreOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 
 const NaviMenu = () => {
@@ -31,11 +31,12 @@ const NaviMenu = () => {
     })
 
     return (
-        <Row style={{background: "white"}} justify="space-around" align="middle">
+        <Row justify="space-around" align="middle">
             <Col span={23}>
                 <Menu
                     onClick={handleClick}
                     selectedKeys={[current]}
+                    theme="dark"
                     mode={"vertical"}>
 
                     <Menu.Item key="" icon={<WalletOutlined/>}>

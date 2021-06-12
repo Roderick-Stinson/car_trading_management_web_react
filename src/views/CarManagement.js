@@ -6,6 +6,7 @@ import Search from "antd/es/input/Search";
 import {CarInfo} from "../components/Info";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {SearchBar} from "../components/SearchBar";
 import {AddCar} from "../components/AddInfo";
 
 const CarManagement = () => {
@@ -88,7 +89,6 @@ const CarManagement = () => {
                         onCancel={cancel}
                         okText="确认"
                         cancelText="取消"
-
                     >
                         <a href="#">删除</a>
                     </Popconfirm>,
@@ -121,18 +121,10 @@ const CarManagement = () => {
     return (
         <Layout style={{background: "white"}}>
             <Header style={{background: "white"}}>
-                <Col>
-                </Col>
-                <Search  placeholder="请输入车辆ID" style={{width: '200px',marginTop : "15px",marginLeft : "1000px"}} allowClear enterButton />
-                <Button type="primary" style={{marginLeft : "30px"}} onClick={showModalAdd} >
-                    添加车辆
-                </Button>
-                <Button type="primary" style={{marginLeft : "30px"}}>
-                    导出csv
-                </Button>
+                <SearchBar placeHolder="请输入车辆ID"/>
             </Header>
-            <Content style={{background: "white"}}>
-                <Table columns={columns} dataSource={data} />
+            <Content style={{background: "rgba(255,255,255,0.2)"}}>
+                <Table columns={columns} dataSource={data}/>
             </Content>
             <>
                 <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} />
