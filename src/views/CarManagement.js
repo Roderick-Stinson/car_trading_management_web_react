@@ -1,6 +1,5 @@
-import {Button, Col, Popconfirm, Space, message, Table} from "antd";
+import {message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
-import Search from "antd/es/input/Search";
 
 
 import {CarInfo} from "../components/Info";
@@ -121,17 +120,18 @@ const CarManagement = () => {
     return (
         <Layout style={{background: "white"}}>
             <Header style={{background: "white"}}>
-                <SearchBar placeHolder="请输入车辆ID"/>
+                <SearchBar placeHolder="请输入车辆ID" btnAddOnClick={showModalAdd} btnAddStr="添加车辆"/>
             </Header>
-            <Content style={{background: "rgba(255,255,255,0.2)"}}>
+            <Content style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280,
+                paddingTop: 0,
+            }}>
                 <Table columns={columns} dataSource={data}/>
             </Content>
-            <>
-                <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} />
-            </>
-            <>
-                <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}></AddCar>
-            </>
+            <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
+            <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
         </Layout>
     )
 }

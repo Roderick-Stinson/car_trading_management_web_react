@@ -1,11 +1,9 @@
+import {useState} from "react";
 import {message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
-import Search from "antd/es/input/Search";
 
+import {AddUser} from "../components/AddInfo";
 import {UserInfo} from "../components/Info";
-import {UserInfo} from "../components/Info";
-
-import {useState} from "react";
 import {SearchBar} from "../components/SearchBar";
 
 const UserManagement = () => {
@@ -93,17 +91,17 @@ const UserManagement = () => {
     const data = [
         {
             key: '1',
-            id:'001',
+            id: '001',
             name: 'John Brown',
-            time:'2020/06/07-16:37:54',
+            time: '2020/06/07-16:37:54',
             phone: 18008384132,
             order: '0',
         },
         {
             key: '2',
-            id:'002',
+            id: '002',
             name: 'Jim Green',
-            time:'2020/06/07-16:37:54',
+            time: '2020/06/07-16:37:54',
             phone: 13888822342,
             order: '5',
         },
@@ -112,18 +110,19 @@ const UserManagement = () => {
     return (
         <Layout style={{background: "white"}}>
             <Header style={{background: "white"}}>
-                <SearchBar placeHolder="请输入用户名"/>
+                <SearchBar placeHolder="请输入用户名" btnAddOnClick={showModalAdd} btnAddStr="添加用户"/>
             </Header>
-            <Content style={{background: "white"}}>
-                <Table columns={columns} dataSource={data} />
+            <Content style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280,
+                paddingTop: 0,
+            }}>
+                <Table columns={columns} dataSource={data}/>
                 <></>
             </Content>
-            <>
-                <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} ></UserInfo>
-            </>
-            <>
-                <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}></AddUser>
-            </>
+            <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
+            <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
 
         </Layout>
 

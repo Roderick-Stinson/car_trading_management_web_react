@@ -139,8 +139,14 @@ const OrderManagement = () => {
             <Header style={{background: "white"}}>
                 <SearchBar placeHolder="请输入订单ID"/>
             </Header>
-            <Content style={{background: "white"}}>
-                <Table columns={columns} dataSource={data} />
+            <Content style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280,
+                paddingTop: 0,
+
+            }}>
+                <Table columns={columns} dataSource={data}/>
             </Content>
             <>
                 <OrderInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
