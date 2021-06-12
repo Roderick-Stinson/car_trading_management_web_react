@@ -19,11 +19,21 @@ const update = baseUrl =>
         const request = axios.put(`${baseUrl}/${id}`, newObject)
         return request.then(response => response.data)
     }
-
+const deleteItem = baseUrl =>
+    (id) => {
+        const request = axios.delete(
+            `${baseUrl}/delete`,
+            {
+                data: {"id": id}
+            }
+        )
+        return request.then(response => response.data)
+    }
 export default class BaseService {
     constructor(baseUrl) {
         this.getAll = getAll(baseUrl)
         this.create = create(baseUrl)
         this.update = getAll(baseUrl)
+        this.delete = deleteItem(baseUrl)
     }
 }
