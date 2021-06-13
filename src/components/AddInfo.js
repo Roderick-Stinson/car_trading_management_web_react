@@ -168,3 +168,85 @@ export const AddCar = ({visible,handleOk, handleCancel}) => {
         </>
     )
 }
+
+export const AddOrder = ({visible,handleOk, handleCancel}) => {
+
+    const [form] = Form.useForm();
+    return (
+        <>
+            <Modal
+                visible={visible}
+                title="添加订单"
+                centered
+                onCancel={handleCancel}
+                onOk={() => {
+                    form.validateFields()
+                        .then(() => {
+                            handleOk()
+                        })
+                }
+                }
+            >
+                <Form
+                    form={form}
+                    layout="vertical"
+                    name="AddCar"
+                >
+                    <Form.Item
+                        label={"车辆ID："}
+                        name="id"
+                        rules={[
+                            {
+                                required: true,
+                                message: '车辆ID不能为空',
+                            },
+                        ]}
+                    >
+                        <Input  placeholder="请输入车辆ID"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"买家："}
+                        name="buyUser"
+                        rules={[
+                            {
+                                required: true,
+                                message: '买家不能为空',
+                            },
+                        ]}
+                    >
+                        <Input placeholder="请输入买家名称" />
+                    </Form.Item>
+                    <Form.Item
+                        label={"买家报价："}
+                        name="quote"
+                        rules={[
+                            {
+                                required: true,
+                                message: '买家报价不能为空',
+                            },
+                        ]}
+                    >
+                        <Input  placeholder="请输入买家报价"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"成交价："}
+                        name="finalPrice"
+                    >
+                        <Input  placeholder="请输入成交价"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={"状态："}
+                        name="state"
+                    >
+                        <Select defaultValue="交易中" style={{ width: 120 }}>
+                            <Option value="doing">交易中</Option>
+                            <Option value="done">已完成</Option>
+                        </Select>
+                    </Form.Item>
+
+                </Form>
+
+            </Modal>
+        </>
+    )
+}

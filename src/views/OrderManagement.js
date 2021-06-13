@@ -4,6 +4,7 @@ import Layout, {Content, Header} from "antd/es/layout/layout";
 import {OrderInfo} from "../components/Info"
 import {useState} from "react";
 import {SearchBar} from "../components/SearchBar";
+import {AddOrder} from "../components/AddInfo";
 
 const OrderManagement = () => {
 
@@ -27,6 +28,20 @@ const OrderManagement = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    //添加订单的弹窗显示关闭
+    const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
+    const showModalAdd = () => {
+        setIsModalVisibleAdd(true);
+    };
+    const handleOkAdd = () => {
+        setIsModalVisibleAdd(false);
+        message.success('添加成功！');
+    };
+    const handleCancelAdd = () => {
+        setIsModalVisibleAdd(false);
+    };
+
     const columns = [
         {
             title: '创建时间',
@@ -137,7 +152,7 @@ const OrderManagement = () => {
     return (
         <Layout style={{background: "white"}}>
             <Header style={{background: "white"}}>
-                <SearchBar placeHolder="请输入订单ID"/>
+                <SearchBar placeHolder="请输入订单ID" btnAddOnClick={showModalAdd} btnAddStr="添加订单"/>
             </Header>
             <Content style={{
                 padding: 24,
@@ -148,9 +163,8 @@ const OrderManagement = () => {
             }}>
                 <Table columns={columns} dataSource={data}/>
             </Content>
-            <>
-                <OrderInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
-            </>
+            <OrderInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
+            <AddOrder visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
         </Layout>
 
 

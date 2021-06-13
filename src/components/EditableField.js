@@ -21,7 +21,7 @@ export const EditableField = ({key, value}) => {
                                     () => {
                                     }
                                 }>
-                                Confirm
+                                修改
                             </Button>
                             <Button onClick={() => setVisible(false)}>
                                 取消
@@ -29,7 +29,7 @@ export const EditableField = ({key, value}) => {
                         </Space>
                     </Space>
                 } title="修改字段">
-                <EditOutlined/>
+                <EditOutlined onClick={() => setVisible(true)} />
             </Popover>
         </Space>
     )

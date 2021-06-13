@@ -45,6 +45,7 @@ export const CarInfo = ({visible, handleOk, handleCancel}) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="报价"> <EditableField
                         value={"your before string"}
+                        visible={true}
                     />
                     </Descriptions.Item>
 

@@ -119,7 +119,6 @@ const UserManagement = () => {
                 paddingTop: 0,
             }}>
                 <Table columns={columns} dataSource={data}/>
-                <></>
             </Content>
             <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
             <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
