@@ -20,10 +20,15 @@ const CarManagement = () => {
 
     }
 
+    //表格数据
+    const [data, setData] = useState([]);
+    const [modelCarInfo, setCarInfo] = useState({})
     //查看详情对应的弹窗显示关闭
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = () => {
+    const showModal = (carId) => () => {
         setIsModalVisible(true);
+        const carInfo = data.find(item => item.key === carId)
+        setCarInfo(carInfo)
     };
     const handleOk = () => {
         setIsModalVisible(false);
@@ -52,9 +57,9 @@ const CarManagement = () => {
             key: 'id',
         },
         {
-            title: '车名',
-            dataIndex: 'name',
-            key: 'name',
+            title: '标题',
+            dataIndex: 'title',
+            key: 'title',
         },
         {
             title: '品牌',
@@ -94,9 +99,9 @@ const CarManagement = () => {
         {
             title: '操作',
             key: 'action',
-            render: () => (
+            render: (record) => (
                 <Space size="middle">
-                    <Button type="link" onClick={showModal}>查看详情</Button>
+                    <Button type="link" onClick={showModal(record.key)}>查看详情</Button>
                     <Popconfirm
                         title="您确定要删除该条数据?"
                         onConfirm={confirm}
@@ -111,14 +116,12 @@ const CarManagement = () => {
         },
     ];
 
-    const [data, setData] = useState([]);
 
     useEffect(() => {
         let loadData = []
         CarSvc.getAll().then(initCars => {
-            console.log(initCars)
             initCars.forEach(item => {
-                const name = item.name.replaceAll('_', ' ').replaceAll('-', ' ')
+                const title = item.name.replaceAll('_', ' ').replaceAll('-', ' ')
                 const parts = item.name.split('-')
                 const brand = parts[0]
                 const subParts = parts[1].split('_')
@@ -132,10 +135,11 @@ const CarManagement = () => {
                     type: type,
                     year: year,
                     args: args,
-                    name: name,
+                    title: title,
                     sellUser: 'unknown',
                     sellPhone: 'unknown',
-                    price: item['price']
+                    price: item['price'],
+                    name: item['name']
                 })
             })
             setData(loadData)
@@ -155,7 +159,7 @@ const CarManagement = () => {
             }}>
                 <Table columns={columns} dataSource={data}/>
             </Content>
-            <CarInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
+            <CarInfo carInfo={modelCarInfo} visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
             <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
         </Layout>
     )

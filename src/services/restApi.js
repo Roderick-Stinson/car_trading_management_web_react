@@ -33,7 +33,7 @@ export default class BaseService {
     constructor(baseUrl) {
         this.getAll = getAll(baseUrl)
         this.create = create(baseUrl)
-        this.update = getAll(baseUrl)
+        this.update = update(baseUrl)
         this.delete = deleteItem(baseUrl)
     }
 }

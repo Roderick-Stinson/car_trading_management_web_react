@@ -26,44 +26,56 @@ export const UserInfo = ({visible, handleOk, handleCancel}) => {
     )
 }
 
-export const CarInfo = ({visible, handleOk, handleCancel}) => {
-
+export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
+    const fields = [
+        {
+            label: '品牌',
+            key: 'name',
+            dataIndex: 'brand'
+        },
+        {
+            label: '型号',
+            key: 'name',
+            dataIndex: 'type'
+        },
+        {
+            label: '款式',
+            key: 'name',
+            dataIndex: 'year'
+        },
+        {
+            label: '其他参数',
+            key: 'name',
+            dataIndex: 'args'
+        },
+        {
+            label: '卖家电话',
+            key: 'sellPhone',
+            dataIndex: 'sellPhone'
+        },
+    ]
     return (
-        <>
-            <Modal
-                visible={visible}
-                title="车辆详情"
-                centered
-                onCancel={handleCancel}
-                onOk={handleOk}
-                width={1000}
-            >
-                <Descriptions layout="vertical">
-                    <Descriptions.Item label="车名"> <EditableField
-                        value={"your before string"}
-                    />
-                    </Descriptions.Item>
-                    <Descriptions.Item label="报价"> <EditableField
-                        value={"your before string"}
-                        visible={true}
-                    />
-                    </Descriptions.Item>
-
-                    <Descriptions.Item label="品牌"> <EditableField
-                        value={"your before string"}
-                    />
-                    </Descriptions.Item>
-                    <Descriptions.Item label="上牌时间"> <EditableField
-                        value={"your before string"}
-                    />
-                    </Descriptions.Item>
-                    <Descriptions.Item label="行驶里程"> <EditableField
-                        value={"your before string"}
-                    />
-                    </Descriptions.Item>
-                </Descriptions>
-            </Modal>
-        </>
+        <Modal
+            visible={visible}
+            title="车辆详情"
+            centered
+            onCancel={handleCancel}
+            onOk={handleOk}
+            width={1000}
+        >
+            <Descriptions layout="vertical">
+                {
+                    fields.map((item) => {
+                        return (
+                            <Descriptions.Item label={item.label}>
+                                <EditableField dataSource='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
+                                               originObject={carInfo}/>
+                            </Descriptions.Item>
+                        )
+                    })
+                }
+            </Descriptions>
+        </Modal>
     )
 }
 
