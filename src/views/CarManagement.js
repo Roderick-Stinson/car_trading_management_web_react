@@ -62,6 +62,21 @@ const CarManagement = () => {
             key: 'brand',
         },
         {
+            title: '型号',
+            dataIndex: 'type',
+            key: 'type'
+        },
+        {
+            title: '款式',
+            dataIndex: 'year',
+            key: 'year'
+        },
+        {
+            title: '其他参数',
+            dataIndex: 'args',
+            key: 'args'
+        },
+        {
             title: '卖家',
             dataIndex: 'sellUser',
             key: 'sellUser',
@@ -79,7 +94,7 @@ const CarManagement = () => {
         {
             title: '操作',
             key: 'action',
-            render: (text, record) => (
+            render: () => (
                 <Space size="middle">
                     <Button type="link" onClick={showModal}>查看详情</Button>
                     <Popconfirm
@@ -101,12 +116,23 @@ const CarManagement = () => {
     useEffect(() => {
         let loadData = []
         CarSvc.getAll().then(initCars => {
+            console.log(initCars)
             initCars.forEach(item => {
+                const name = item.name.replaceAll('_', ' ').replaceAll('-', ' ')
+                const parts = item.name.split('-')
+                const brand = parts[0]
+                const subParts = parts[1].split('_')
+                const type = subParts[0]
+                const year = subParts[1]
+                const args = subParts.slice(2).join(' ')
                 loadData.push({
                     key: item['id'],
                     id: item['id'],
-                    brand: item['name'],
-                    name: item['name'],
+                    brand: brand,
+                    type: type,
+                    year: year,
+                    args: args,
+                    name: name,
                     sellUser: 'unknown',
                     sellPhone: 'unknown',
                     price: item['price']

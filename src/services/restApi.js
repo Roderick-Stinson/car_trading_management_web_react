@@ -10,7 +10,7 @@ const create = baseUrl =>
     (newObject) => {
         console.log("create call")
         console.log(newObject)
-        const request = axios.post(baseUrl, newObject)
+        const request = axios.post(`${baseUrl}/create`, newObject)
         return request.then(response => response.data)
     }
 

@@ -101,7 +101,7 @@ const OrderManagement = () => {
         {
             title: '操作',
             key: 'action',
-            render: (text, record) => (
+            render: () => (
                 <Space size="middle">
                     <Button type="link" onClick={showModal}>查看详情</Button>
                     <Popconfirm

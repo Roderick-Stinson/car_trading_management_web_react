@@ -1,17 +1,27 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 
 import {AddUser} from "../components/AddInfo";
 import {UserInfo} from "../components/Info";
 import {SearchBar} from "../components/SearchBar";
+import UserSvc from "../services/user"
 
 const UserManagement = () => {
+    const [users, setUsers] = useState([]);
+
 
     //列表删除按钮的确认和取消函数
-    function confirm(e) {
-        console.log(e);
-        message.error('删除成功！');
+    const confirmDelete = (id) => () => {
+        UserSvc.delete(id).then(data => {
+                console.log(data)
+                const usersAfterDelete = users.filter(user => user.id !== id)
+                setUsers(usersAfterDelete)
+            }
+        ).catch(reason => {
+            console.log(reason)
+        })
+        console.log(id)
     }
 
     function cancel(e) {
@@ -71,20 +81,23 @@ const UserManagement = () => {
         {
             title: '操作',
             key: 'action',
-            render: (text, record) => (
-                <Space size="middle">
-                    <Button type="link" onClick={showModal}>查看详情</Button>
-                    <Popconfirm
-                        title="您确定要删除该条数据?"
-                        onConfirm={confirm}
-                        onCancel={cancel}
-                        okText="确认"
-                        cancelText="取消"
-                    >
-                        <Button type="link" href="#">删除</Button>
-                    </Popconfirm>
-                </Space>
-            ),
+            render: (record) => {
+                console.log(record)
+                return (
+                    <Space size="middle">
+                        <Button type="link" onClick={showModal}>查看详情</Button>
+                        <Popconfirm
+                            title="您确定要删除该条数据?"
+                            onConfirm={confirmDelete(record.id)}
+                            onCancel={cancel}
+                            okText="确认"
+                            cancelText="取消"
+                        >
+                            <Button type="link">删除</Button>
+                        </Popconfirm>
+                    </Space>
+                )
+            },
         },
     ];
 
@@ -106,6 +119,15 @@ const UserManagement = () => {
             order: '5',
         },
     ];
+    useEffect(
+        () => {
+            let loadData = []
+            UserSvc.getAll().then(initUsers => {
+                console.log(initUsers)
+            })
+            // setUsers(loadData)
+            setUsers(data)
+        }, [])
 
     return (
         <Layout style={{background: "white"}}>
@@ -118,7 +140,7 @@ const UserManagement = () => {
                 minHeight: 280,
                 paddingTop: 0,
             }}>
-                <Table columns={columns} dataSource={data}/>
+                <Table columns={columns} dataSource={users}/>
             </Content>
             <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
             <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>

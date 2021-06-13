@@ -4,6 +4,19 @@ import {useState} from "react";
 
 export const EditableField = ({key, value}) => {
     const [visible, setVisible] = useState(false);
+    const [holdPopover, setHold] = useState(false)
+    const handleVisibleChange = visible => {
+        console.log(holdPopover)
+        if (!holdPopover) {
+            setVisible(visible);
+        }
+    };
+    const handleHold = () => {
+        setHold(true)
+    }
+    const handleNotHole = () => {
+        setHold(false)
+    }
     return (
         <Space>
             {value}
@@ -11,9 +24,12 @@ export const EditableField = ({key, value}) => {
                 placement="bottom"
                 visible={visible}
                 trigger="click"
+                onVisibleChange={handleVisibleChange}
                 content={
                     <Space>
-                        <Input defaultValue={value}/>
+                        <Input defaultValue={value}
+                               onFocus={handleHold}
+                               onBlur={handleNotHole}/>
                         <Space>
                             <Button
                                 type="primary"
@@ -29,7 +45,7 @@ export const EditableField = ({key, value}) => {
                         </Space>
                     </Space>
                 } title="修改字段">
-                <EditOutlined onClick={() => setVisible(true)} />
+                <EditOutlined onClick={() => setVisible(true)}/>
             </Popover>
         </Space>
     )
