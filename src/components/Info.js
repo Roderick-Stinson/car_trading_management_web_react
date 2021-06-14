@@ -51,12 +51,14 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
         {
             label: '价格',
             key: 'price',
-            dataIndex: 'price'
+            dataIndex: 'price',
+            unit: '万元'
         },
         {
             label: '里程数',
             key: 'mileage',
-            dataIndex: 'mileage'
+            dataIndex: 'mileage',
+            unit: '万公里'
         },
         {
             label: '卖家电话',
@@ -79,6 +81,7 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
                         return (
                             <Descriptions.Item label={item.label}>
                                 <EditableField fieldFrom='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
+                                               unit={item.unit}
                                                originObject={carInfo}/>
                             </Descriptions.Item>
                         )

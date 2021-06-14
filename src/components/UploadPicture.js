@@ -1,4 +1,4 @@
-import {Upload, Modal} from 'antd';
+import {Upload} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 

@@ -5,7 +5,7 @@ import carSvc from "../services/car";
 import userSvc from "../services/user";
 import orderSvc from "../services/order";
 
-export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
+export const EditableField = ({fieldFrom, fieldKey, originObject, value, unit}) => {
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
 
@@ -58,7 +58,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
     }
     return (
         <Space>
-            {value}
+            {value} {unit}
             <Popover
                 placement="bottom"
                 visible={visible}

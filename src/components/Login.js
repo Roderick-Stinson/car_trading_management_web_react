@@ -1,5 +1,5 @@
-import { Form, Input, Button, Checkbox } from 'antd';
-import NaviMenu from "./NaviMenu";
+import {Button, Checkbox, Form, Input} from 'antd';
+
 const layout = {
     labelCol: {
         span: 8,

@@ -121,7 +121,7 @@ const UserManagement = () => {
     ];
     useEffect(
         () => {
-            let loadData = []
+            // let loadData = []
             UserSvc.getAll().then(initUsers => {
                 console.log(initUsers)
             })

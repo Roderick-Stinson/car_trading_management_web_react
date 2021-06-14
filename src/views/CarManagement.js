@@ -82,7 +82,7 @@ const CarManagement = () => {
             key: 'version'
         },
         {
-            title: '里程数',
+            title: '里程数（万公里）',
             dataIndex: 'mileage',
             key: 'mileage'
         },
@@ -97,7 +97,7 @@ const CarManagement = () => {
             key: 'sellPhone',
         },
         {
-            title: '售价',
+            title: '售价（万元）',
             dataIndex: 'price',
             key: 'price',
         },
@@ -125,6 +125,7 @@ const CarManagement = () => {
     useEffect(() => {
         let loadData = []
         CarSvc.getAll().then(initCars => {
+            initCars.sort((a, b) => a.id - b.id)
             initCars.forEach(item => {
                 const title = [item.brand, item.model, item.year, item.version].join(" ")
                 loadData.push({

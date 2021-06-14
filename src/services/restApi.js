@@ -1,8 +1,8 @@
-import axios from 'axios'
+import $http from "./http_util";
 
 const getAll = baseUrl =>
     () => {
-        const request = axios.get(`${baseUrl}/list`, {params: {count: 50}})
+        const request = $http.get(`${baseUrl}/list`, {params: {count: 50}})
         return request.then(response => response.data)
     }
 
@@ -10,18 +10,18 @@ const create = baseUrl =>
     (newObject) => {
         console.log("create call")
         console.log(newObject)
-        const request = axios.post(`${baseUrl}/create`, newObject)
+        const request = $http.post(`${baseUrl}/create`, newObject)
         return request.then(response => response.data)
     }
 
 const update = baseUrl =>
     (id, newObject) => {
-        const request = axios.patch(`${baseUrl}/${id}`, newObject)
+        const request = $http.patch(`${baseUrl}/${id}`, newObject)
         return request.then(response => response.data)
     }
 const deleteItem = baseUrl =>
     (id) => {
-        const request = axios.delete(
+        const request = $http.delete(
             `${baseUrl}/delete`,
             {
                 data: {"id": id}
