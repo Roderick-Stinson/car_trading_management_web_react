@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {SearchBar} from "../components/SearchBar";
 import {AddCar} from "../components/AddInfo";
 import CarSvc from "../services/car"
+import {carMapper} from "../mapper/mapper";
 
 const CarManagement = () => {
 
@@ -49,58 +50,7 @@ const CarManagement = () => {
     const handleCancelAdd = () => {
         setIsModalVisibleAdd(false);
     };
-
     const columns = [
-        {
-            title: '车辆ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
-            title: '标题',
-            dataIndex: 'title',
-            key: 'title',
-        },
-        {
-            title: '品牌',
-            dataIndex: 'brand',
-            key: 'brand',
-        },
-        {
-            title: '型号',
-            dataIndex: 'model',
-            key: 'model'
-        },
-        {
-            title: '款式',
-            dataIndex: 'year',
-            key: 'year'
-        },
-        {
-            title: '版本',
-            dataIndex: 'version',
-            key: 'version'
-        },
-        {
-            title: '里程数（万公里）',
-            dataIndex: 'mileage',
-            key: 'mileage'
-        },
-        {
-            title: '卖家',
-            dataIndex: 'sellUser',
-            key: 'sellUser',
-        },
-        {
-            title: '卖家联系方式',
-            dataIndex: 'sellPhone',
-            key: 'sellPhone',
-        },
-        {
-            title: '售价（万元）',
-            dataIndex: 'price',
-            key: 'price',
-        },
         {
             title: '操作',
             key: 'action',
@@ -120,6 +70,17 @@ const CarManagement = () => {
             ),
         },
     ];
+    let colIndexes = ['id', 'title', 'brand', 'model', 'year', 'version', 'sellUser', 'price', 'sellPhone'].reverse()
+    colIndexes.forEach(item => {
+        //往数组头部添加元素
+        columns.unshift({dataIndex: item})
+    })
+    columns.forEach(item => {
+        if (item.key !== 'action') {
+            item.key = item.dataIndex
+            item.title = carMapper[item.dataIndex]
+        }
+    })
 
 
     useEffect(() => {

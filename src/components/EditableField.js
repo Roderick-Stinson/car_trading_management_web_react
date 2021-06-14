@@ -1,14 +1,15 @@
-import {Button, Form, Input, Popover, Space} from "antd";
-import {EditOutlined} from "@ant-design/icons";
+import {Button, Form, Input, notification, Popover, Space} from "antd";
+import {CheckOutlined, EditOutlined} from "@ant-design/icons";
 import {useState} from "react";
 import carSvc from "../services/car";
 import userSvc from "../services/user";
 import orderSvc from "../services/order";
+import {carMapper} from '../mapper/mapper'
 
-export const EditableField = ({fieldFrom, fieldKey, originObject, value, unit}) => {
+export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
-
+    const [FieldValue, setFieldValue] = useState(value)
     //设置使用的服务模块
     let svc;
     switch (fieldFrom) {
@@ -41,14 +42,19 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, unit}) 
         // let originValue = value
         const id = originObject.id
         let newObject = {...originObject}
-        // let wholeField = originObject[key]
-        // let newValue = values['newValue']
-        newObject[fieldKey] = values.input
-        console.log(newObject)
+        let newValue = values.input
+        newObject[fieldKey] = newValue
 
         svc.update(id, newObject).then(
-            (updatedData) => {
-                console.log(updatedData)
+            () => {
+                setFieldValue(newValue)
+                setVisible(!visible)
+                notification.open({
+                    message: '修改成功',
+                    description:
+                        `"${carMapper[fieldKey]}" 字段已经从 ${originObject[fieldKey]} 修改为 ${newValue}`,
+                    icon: <CheckOutlined style={{color: 'green'}}/>,
+                });
             }
         ).catch(
             reason => {
@@ -58,7 +64,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, unit}) 
     }
     return (
         <Space>
-            {value} {unit}
+            {FieldValue}
             <Popover
                 placement="bottom"
                 visible={visible}
@@ -68,7 +74,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, unit}) 
                 content={
                     <Form
                         onFinish={onFinish}
-                        initialValues={{'input': value}}>
+                        initialValues={{'input': FieldValue}}>
                         <Form.Item
                             name='input'>
                             <Input onFocus={handleHold}

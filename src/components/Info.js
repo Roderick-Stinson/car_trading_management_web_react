@@ -1,6 +1,7 @@
 import Modal from "antd/es/modal/Modal";
 import {Descriptions} from "antd";
 import {EditableField} from "./EditableField";
+import {carMapper} from "../mapper/mapper";
 
 export const UserInfo = ({visible, handleOk, handleCancel}) => {
 
@@ -27,45 +28,16 @@ export const UserInfo = ({visible, handleOk, handleCancel}) => {
 }
 
 export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
-    const fields = [
-        {
-            label: '品牌',
-            key: 'brand',
-            dataIndex: 'brand'
-        },
-        {
-            label: '型号',
-            key: 'model',
-            dataIndex: 'model'
-        },
-        {
-            label: '款式',
-            key: 'year',
-            dataIndex: 'year'
-        },
-        {
-            label: '其他参数',
-            key: 'version',
-            dataIndex: 'version'
-        },
-        {
-            label: '价格',
-            key: 'price',
-            dataIndex: 'price',
-            unit: '万元'
-        },
-        {
-            label: '里程数',
-            key: 'mileage',
-            dataIndex: 'mileage',
-            unit: '万公里'
-        },
-        {
-            label: '卖家电话',
-            key: 'sellPhone',
-            dataIndex: 'sellPhone'
-        },
-    ]
+    const _fields = ['brand', 'model', 'year', 'version', 'price', 'mileage', 'sellPhone']
+    const fields = []
+    _fields.forEach(item => {
+            fields.push({
+                label: carMapper[item],
+                dataIndex: item,
+                key: item,
+            })
+        }
+    )
     return (
         <Modal
             visible={visible}
@@ -81,7 +53,6 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
                         return (
                             <Descriptions.Item label={item.label}>
                                 <EditableField fieldFrom='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
-                                               unit={item.unit}
                                                originObject={carInfo}/>
                             </Descriptions.Item>
                         )
