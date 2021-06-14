@@ -68,8 +68,8 @@ const CarManagement = () => {
         },
         {
             title: '型号',
-            dataIndex: 'type',
-            key: 'type'
+            dataIndex: 'model',
+            key: 'model'
         },
         {
             title: '款式',
@@ -77,9 +77,14 @@ const CarManagement = () => {
             key: 'year'
         },
         {
-            title: '其他参数',
-            dataIndex: 'args',
-            key: 'args'
+            title: '版本',
+            dataIndex: 'version',
+            key: 'version'
+        },
+        {
+            title: '里程数',
+            dataIndex: 'mileage',
+            key: 'mileage'
         },
         {
             title: '卖家',
@@ -121,25 +126,19 @@ const CarManagement = () => {
         let loadData = []
         CarSvc.getAll().then(initCars => {
             initCars.forEach(item => {
-                const title = item.name.replaceAll('_', ' ').replaceAll('-', ' ')
-                const parts = item.name.split('-')
-                const brand = parts[0]
-                const subParts = parts[1].split('_')
-                const type = subParts[0]
-                const year = subParts[1]
-                const args = subParts.slice(2).join(' ')
+                const title = [item.brand, item.model, item.year, item.version].join(" ")
                 loadData.push({
-                    key: item['id'],
-                    id: item['id'],
-                    brand: brand,
-                    type: type,
-                    year: year,
-                    args: args,
+                    key: item.id,
+                    id: item.id,
+                    brand: item.brand,
+                    model: item.model,
+                    year: item.year,
+                    version: item.version,
                     title: title,
                     sellUser: 'unknown',
                     sellPhone: 'unknown',
-                    price: item['price'],
-                    name: item['name']
+                    price: item.price,
+                    mileage: item.mileage
                 })
             })
             setData(loadData)

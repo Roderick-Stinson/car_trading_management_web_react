@@ -30,23 +30,33 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
     const fields = [
         {
             label: '品牌',
-            key: 'name',
+            key: 'brand',
             dataIndex: 'brand'
         },
         {
             label: '型号',
-            key: 'name',
-            dataIndex: 'type'
+            key: 'model',
+            dataIndex: 'model'
         },
         {
             label: '款式',
-            key: 'name',
+            key: 'year',
             dataIndex: 'year'
         },
         {
             label: '其他参数',
-            key: 'name',
-            dataIndex: 'args'
+            key: 'version',
+            dataIndex: 'version'
+        },
+        {
+            label: '价格',
+            key: 'price',
+            dataIndex: 'price'
+        },
+        {
+            label: '里程数',
+            key: 'mileage',
+            dataIndex: 'mileage'
         },
         {
             label: '卖家电话',
@@ -68,7 +78,7 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
                     fields.map((item) => {
                         return (
                             <Descriptions.Item label={item.label}>
-                                <EditableField dataSource='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
+                                <EditableField fieldFrom='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
                                                originObject={carInfo}/>
                             </Descriptions.Item>
                         )

@@ -5,13 +5,13 @@ import carSvc from "../services/car";
 import userSvc from "../services/user";
 import orderSvc from "../services/order";
 
-export const EditableField = ({dataSource, fieldKey, originObject, value}) => {
+export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
 
     //设置使用的服务模块
     let svc;
-    switch (dataSource) {
+    switch (fieldFrom) {
         case 'car':
             svc = carSvc
             break
@@ -38,13 +38,12 @@ export const EditableField = ({dataSource, fieldKey, originObject, value}) => {
     }
 
     const onFinish = (values) => {
-        let originValue = value
+        // let originValue = value
         const id = originObject.id
-        const key = fieldKey
         let newObject = {...originObject}
-        let wholeField = originObject[key]
-        let newValue = values['newValue']
-        newObject[key] = wholeField.replace(originValue, newValue)
+        // let wholeField = originObject[key]
+        // let newValue = values['newValue']
+        newObject[fieldKey] = values.input
         console.log(newObject)
 
         svc.update(id, newObject).then(
@@ -69,9 +68,9 @@ export const EditableField = ({dataSource, fieldKey, originObject, value}) => {
                 content={
                     <Form
                         onFinish={onFinish}
-                        initialValues={{'newValue': value}}>
+                        initialValues={{'input': value}}>
                         <Form.Item
-                            name='newValue'>
+                            name='input'>
                             <Input onFocus={handleHold}
                                    onBlur={handleNotHold}/>
                         </Form.Item>
