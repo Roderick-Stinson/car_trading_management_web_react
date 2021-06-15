@@ -1,4 +1,4 @@
-import {Button, Checkbox, Col, Form, Input, message, Row} from 'antd';
+import {Button, Card, Checkbox, Col, Form, Input, message, Row} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import {useHistory} from 'react-router'
 import "./LoginForm.css"
@@ -32,41 +32,44 @@ export const LoginForm = () => {
     };
 
     return (
-        <Row justify={"center"}>
-            <Col span={6}>
-                <Form
-                    name="normal_login"
-                    className="login-form"
-                    initialValues={{remember: true}}
-                    onFinish={onFinishLogin}
-                >
-                    <Form.Item
-                        name="username"
-                        rules={[{required: true, message: 'Please input your Username!'}]}
+        <Row justify={"center"} style={{height: '100vh'}} align={"middle"}>
+            <Col span={5}>
+                <Card>
+                    <h2>登陆到二手车管理后台</h2>
+                    <Form
+                        name="normal_login"
+                        className="login-form"
+                        initialValues={{remember: true}}
+                        onFinish={onFinishLogin}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[{required: true, message: 'Please input your Password!'}]}>
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon"/>}
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember me</Checkbox>
+                        <Form.Item
+                            name="username"
+                            rules={[{required: true, message: 'Please input your Username!'}]}
+                        >
+                            <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
                         </Form.Item>
-                    </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[{required: true, message: 'Please input your Password!'}]}>
+                            <Input
+                                prefix={<LockOutlined className="site-form-item-icon"/>}
+                                type="password"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Form.Item name="remember" valuePropName="checked" noStyle>
+                                <Checkbox>Remember me</Checkbox>
+                            </Form.Item>
+                        </Form.Item>
 
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
-                            登陆
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" className="login-form-button">
+                                登陆
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
             </Col>
         </Row>
     );

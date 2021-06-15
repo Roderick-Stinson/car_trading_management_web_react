@@ -41,6 +41,7 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
         dispatch(removeToken())
         dispatch(removeUsername())
         toggleLoginStatus()
+        history.push('/login')
     }
     const history = useHistory()
     const loginBtn = () => (
