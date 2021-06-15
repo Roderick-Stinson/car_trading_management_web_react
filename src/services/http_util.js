@@ -2,6 +2,7 @@ import axios from 'axios'
 import storage from "sweet-storage";
 import {message} from 'antd'
 import {history} from "../utils/history";
+import {isLogin} from "./login";
 
 const $http = axios.create({
     baseURL: '',
@@ -11,7 +12,7 @@ const $http = axios.create({
 // 添加请求拦截器
 $http.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-    if (storage.get('Authorization')) {
+    if (isLogin()) {
         config.headers['Authorization'] = storage.get('Authorization')
     }
     return config;

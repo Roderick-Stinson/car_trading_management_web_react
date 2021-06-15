@@ -1,19 +1,19 @@
-import {Button, Checkbox, Col, Form, Input, Row} from 'antd';
+import {Button, Checkbox, Col, Form, Input, message, Row} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router'
 import "./LoginForm.css"
 import {useDispatch} from "react-redux";
-import {LoginToServer} from "../services/login";
+import {isLogin, LoginToServer} from "../services/login";
 import {setToken} from "../reducer/TokenReducer";
 import {setUsername} from "../reducer/UsernameReducer";
 import {useEffect} from "react";
-import storage from "sweet-storage";
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     useEffect(() => {
-        if (storage.get('Authorization')) {
+        if (isLogin()) {
+            message.success({content: '已登陆', key: 'logged in'})
             history.push('/')
         }
     }, [])

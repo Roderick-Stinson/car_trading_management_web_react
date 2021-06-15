@@ -93,7 +93,6 @@ const UserManagement = () => {
 
     useEffect(
         () => {
-            // let loadData = []
             UserSvc.getAll().then(res => {
                 console.log(res)
                 res.sort((a, b) => a['userid'] - b['userid'])

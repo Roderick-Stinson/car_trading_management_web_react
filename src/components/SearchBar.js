@@ -4,8 +4,8 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {removeToken} from "../reducer/TokenReducer";
 import {removeUsername} from "../reducer/UsernameReducer";
-import storage from "sweet-storage";
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router'
+import {getUsername, isLogin} from "../services/login";
 
 export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
     let btnGroup;
@@ -28,7 +28,7 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
         )
     }
     useEffect(() => {
-        if (storage.get('Username')) {
+        if (isLogin()) {
             _setLoginStatus(true)
         }
     }, []);
@@ -53,7 +53,7 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
     const userBtnGroup = () => (
         <>
             <Col>
-                {storage.get('Username')} logged in
+                {getUsername()} logged in
             </Col>
             <Col>
                 <Button onClick={onSignOut}>sign out</Button>
