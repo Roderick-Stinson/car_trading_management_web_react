@@ -1,10 +1,26 @@
 import Modal from "antd/es/modal/Modal";
 import {Descriptions} from "antd";
 import {EditableField} from "./EditableField";
-import {carMapper} from "../mapper/mapper";
+import {carMapper, userMapper} from "../mapper/mapper";
 
-export const UserInfo = ({visible, handleOk, handleCancel}) => {
+const genFields = (_fields, disableEditFields, mapper) => {
+    const fields = []
+    _fields.forEach(item => {
+            fields.push({
+                label: mapper[item],
+                dataIndex: item,
+                key: item,
+                disableEdit: !!disableEditFields.find(i => i === item)
+            })
+        }
+    )
+    return fields
+}
+export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
 
+    let _fields = ['userid', 'username', 'regDate', 'phone']
+    let disableEditFields = ['userid', 'regDate']
+    const fields = genFields(_fields, disableEditFields, userMapper)
     return (
         <>
             <Modal
@@ -16,12 +32,21 @@ export const UserInfo = ({visible, handleOk, handleCancel}) => {
                 width={1000}
             >
                 <Descriptions layout="vertical">
-                    <Descriptions.Item label="用户ID">001</Descriptions.Item>
-                    <Descriptions.Item label="用户名">Zhou Maomao</Descriptions.Item>
-                    <Descriptions.Item label="手机号">1810000000</Descriptions.Item>
-                    <Descriptions.Item label="注册时间">2020/06/07-16:37:54</Descriptions.Item>
-                    <Descriptions.Item label="订单数">5</Descriptions.Item>
-                </Descriptions>,
+                    {
+                        fields.map((item) => {
+                            return (
+                                <Descriptions.Item label={item.label} key={item.key}>
+                                    <EditableField fieldFrom='car'
+                                                   fieldKey={item.key}
+                                                   value={userInfo[item.dataIndex]}
+                                                   originObject={userInfo}
+                                                   disableEdit={item.disableEdit}
+                                    />
+                                </Descriptions.Item>
+                            )
+                        })
+                    }
+                </Descriptions>
             </Modal>
         </>
     )
@@ -29,15 +54,8 @@ export const UserInfo = ({visible, handleOk, handleCancel}) => {
 
 export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
     const _fields = ['brand', 'model', 'year', 'version', 'price', 'mileage', 'sellPhone']
-    const fields = []
-    _fields.forEach(item => {
-            fields.push({
-                label: carMapper[item],
-                dataIndex: item,
-                key: item,
-            })
-        }
-    )
+    let disableEditFields = ['sellPhone']
+    const fields = genFields(_fields, disableEditFields, carMapper)
     return (
         <Modal
             visible={visible}
@@ -51,9 +69,13 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
                 {
                     fields.map((item) => {
                         return (
-                            <Descriptions.Item label={item.label}>
-                                <EditableField fieldFrom='car' fieldKey={item.key} value={carInfo[item.dataIndex]}
-                                               originObject={carInfo}/>
+                            <Descriptions.Item label={item.label} key={item.key}>
+                                <EditableField fieldFrom='car'
+                                               fieldKey={item.key}
+                                               value={carInfo[item.dataIndex]}
+                                               originObject={carInfo}
+                                               disableEdit={item.disableEdit}
+                                />
                             </Descriptions.Item>
                         )
                     })

@@ -6,14 +6,17 @@ import {AddUser} from "../components/AddInfo";
 import {UserInfo} from "../components/Info";
 import {SearchBar} from "../components/SearchBar";
 import UserSvc from "../services/user"
+import {userMapper} from "../mapper/mapper";
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
+    const [modelUserInfo, setUserInfo] = useState({})
 
 
     //列表删除按钮的确认和取消函数
     const confirmDelete = (id) => () => {
         UserSvc.delete(id).then(data => {
+            // if (data.isPrototypeOf(Array))
                 console.log(data)
                 const usersAfterDelete = users.filter(user => user.id !== id)
                 setUsers(usersAfterDelete)
@@ -30,8 +33,10 @@ const UserManagement = () => {
 
     //查看详情对应的弹窗显示关闭
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = () => {
+    const showModal = (carId) => () => {
         setIsModalVisible(true);
+        const userInfo = users.find(item => item.key === carId)
+        setUserInfo(userInfo)
     };
     const handleOk = () => {
         setIsModalVisible(false);
@@ -54,38 +59,12 @@ const UserManagement = () => {
 
     const columns = [
         {
-            title: '用户ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
-            title: '用户名',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: '注册时间',
-            dataIndex: 'time',
-            key: 'time',
-        },
-        {
-            title: '手机号',
-            dataIndex: 'phone',
-            key: 'phone',
-        },
-        {
-            title: '订单数',
-            dataIndex: 'order',
-            key: 'order',
-        },
-        {
             title: '操作',
             key: 'action',
             render: (record) => {
-                console.log(record)
                 return (
                     <Space size="middle">
-                        <Button type="link" onClick={showModal}>查看详情</Button>
+                        <Button type="link" onClick={showModal(record.key)}>查看详情</Button>
                         <Popconfirm
                             title="您确定要删除该条数据?"
                             onConfirm={confirmDelete(record.id)}
@@ -100,33 +79,33 @@ const UserManagement = () => {
             },
         },
     ];
+    let colIndexes = ['userid', 'username', 'regDate', 'phone'].reverse()
+    colIndexes.forEach(item => {
+        //往数组头部添加元素
+        columns.unshift({dataIndex: item})
+    })
+    columns.forEach(item => {
+        if (item.key !== 'action') {
+            item.key = item.dataIndex
+            item.title = userMapper[item.dataIndex]
+        }
+    })
 
-    const data = [
-        {
-            key: '1',
-            id: '001',
-            name: 'John Brown',
-            time: '2020/06/07-16:37:54',
-            phone: 18008384132,
-            order: '0',
-        },
-        {
-            key: '2',
-            id: '002',
-            name: 'Jim Green',
-            time: '2020/06/07-16:37:54',
-            phone: 13888822342,
-            order: '5',
-        },
-    ];
     useEffect(
         () => {
             // let loadData = []
-            UserSvc.getAll().then(initUsers => {
-                console.log(initUsers)
+            UserSvc.getAll().then(res => {
+                console.log(res)
+                res.sort((a, b) => a['userid'] - b['userid'])
+                res.forEach(u => {
+                    u.regDate = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
+                    console.log(u.regDate)
+                })
+                setUsers(res)
+            }).catch(err => {
+                message.error("请先登录")
+                console.log(err)
             })
-            // setUsers(loadData)
-            setUsers(data)
         }, [])
 
     return (
@@ -142,7 +121,8 @@ const UserManagement = () => {
             }}>
                 <Table columns={columns} dataSource={users}/>
             </Content>
-            <UserInfo visible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}/>
+            <UserInfo userInfo={modelUserInfo} visible={isModalVisible} handleOk={handleOk}
+                      handleCancel={handleCancel}/>
             <AddUser visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
 
         </Layout>

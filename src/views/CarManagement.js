@@ -70,7 +70,7 @@ const CarManagement = () => {
             ),
         },
     ];
-    let colIndexes = ['id', 'title', 'brand', 'model', 'year', 'version', 'sellUser', 'price', 'sellPhone'].reverse()
+    let colIndexes = ['id', 'title', 'brand', 'model', 'year', 'version', 'price', 'sellUser', 'sellPhone'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})

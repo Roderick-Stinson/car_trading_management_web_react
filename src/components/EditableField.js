@@ -6,7 +6,8 @@ import userSvc from "../services/user";
 import orderSvc from "../services/order";
 import {carMapper} from '../mapper/mapper'
 
-export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
+export const EditableField = ({fieldFrom, fieldKey, originObject, value, disableEdit}) => {
+    console.log(disableEdit)
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
     const [FieldValue, setFieldValue] = useState(value)
@@ -39,6 +40,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
     }
 
     const onFinish = (values) => {
+        debugger
         // let originValue = value
         const id = originObject.id
         let newObject = {...originObject}
@@ -78,11 +80,13 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value}) => {
                         <Form.Item
                             name='input'>
                             <Input onFocus={handleHold}
-                                   onBlur={handleNotHold}/>
+                                   onBlur={handleNotHold}
+                                   disabled={disableEdit}/>
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary"
-                                    htmlType='submit'>
+                                    htmlType='submit'
+                                    disabled={disableEdit}>
                                 修改
                             </Button>
                         </Form.Item>

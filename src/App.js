@@ -5,8 +5,8 @@ import NaviMenu from "./components/NaviMenu";
 import UserManagement from "./views/UserManagement";
 import CarManagement from "./views/CarManagement";
 import OrderManagement from "./views/OrderManagement";
-
-import {BrowserRouter as Router, Route,} from "react-router-dom"
+import {history} from './utils/history'
+import {BrowserRouter as Router, Route} from "react-router-dom"
 
 import {Layout} from 'antd';
 
@@ -15,7 +15,7 @@ const {Sider, Content} = Layout;
 
 function App() {
     return (
-        <Router>
+        <Router history={history}>
             <Layout style={{minHeight: '100vh'}}>
                 <Sider>
                     <div className="logo" style={{
@@ -29,9 +29,9 @@ function App() {
                     <NaviMenu/>
                 </Sider>
                 <Content>
-                    <Route component={UserManagement} exact={true} path={'/'}/>
-                    <Route component={CarManagement} exact={true} path={'/CarManagement'}/>
-                    <Route component={OrderManagement} exact={true} path={'/OrderManagement'}/>
+                    <Route component={UserManagement} exact path={'/'}/>
+                    <Route component={CarManagement} exact path={'/CarManagement'}/>
+                    <Route component={OrderManagement} exact path={'/OrderManagement'}/>
                 </Content>
             </Layout>
         </Router>
