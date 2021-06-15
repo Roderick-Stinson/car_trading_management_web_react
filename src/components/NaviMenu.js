@@ -1,7 +1,8 @@
-import {Link, useHistory} from 'react-router-dom'
-import {Col, Menu, Row} from 'antd';
-import {AppstoreOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
+import {Link, Redirect, useHistory} from 'react-router-dom'
+import {Col, Menu, message, Row} from 'antd';
+import {AppstoreOutlined, KeyOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
+import storage from "sweet-storage";
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
@@ -32,7 +33,14 @@ const NaviMenu = () => {
     history.listen(route => {
         setRoute(route.pathname)
     })
-
+    const linkOrLogin = (url) => {
+        if (storage.get('Authorization')) {
+            return (<Link to={url}/>)
+        } else {
+            message.error({content: "请先登陆", key: 'login-error'})
+            return (<Redirect to={'/login'}/>)
+        }
+    }
     return (
         <Row justify="space-around" align="middle">
             <Col span={23}>
@@ -43,16 +51,23 @@ const NaviMenu = () => {
                     mode={"vertical"}>
 
                     <Menu.Item key="" icon={<WalletOutlined/>}>
-                        <Link to={'/'}/>
+                        {linkOrLogin('/')}
+                        {/*<Link to={'/'}/>*/}
                         用户管理
                     </Menu.Item>
                     <Menu.Item key="sell" icon={<AppstoreOutlined/>}>
-                        <Link to={'/CarManagement'}/>
+                        {linkOrLogin('/CarManagement')}
+                        {/*<Link to={'/CarManagement'}/>*/}
                         车辆管理
                     </Menu.Item>
                     <Menu.Item key="order" icon={<TransactionOutlined/>}>
-                        <Link to={'/orderManagement'}/>
+                        {linkOrLogin('/OrderManagement')}
+                        {/*<Link to={'/orderManagement'}/>*/}
                         订单管理
+                    </Menu.Item>
+                    <Menu.Item key="login" icon={<KeyOutlined/>}>
+                        <Link to={'/login'}/>
+                        登陆
                     </Menu.Item>
                 </Menu>
             </Col>

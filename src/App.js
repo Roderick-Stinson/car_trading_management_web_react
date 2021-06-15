@@ -9,6 +9,7 @@ import {history} from './utils/history'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 
 import {Layout} from 'antd';
+import {LoginForm} from "./views/LoginForm";
 
 const {Sider, Content} = Layout;
 
@@ -32,6 +33,7 @@ function App() {
                     <Route component={UserManagement} exact path={'/'}/>
                     <Route component={CarManagement} exact path={'/CarManagement'}/>
                     <Route component={OrderManagement} exact path={'/OrderManagement'}/>
+                    <Route component={LoginForm} exact path={'/login'}/>
                 </Content>
             </Layout>
         </Router>
