@@ -79,7 +79,7 @@ const UserManagement = () => {
             },
         },
     ];
-    let colIndexes = ['userid', 'username', 'regDate', 'phone'].reverse()
+    let colIndexes = ['id', 'username', 'regDate', 'phone'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})
@@ -95,7 +95,7 @@ const UserManagement = () => {
         () => {
             UserSvc.getAll().then(res => {
                 console.log(res)
-                res.sort((a, b) => a['userid'] - b['userid'])
+                res.sort((a, b) => a['id'] - b['id'])
                 res.forEach(u => {
                     u.regDate = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
                     console.log(u.regDate)

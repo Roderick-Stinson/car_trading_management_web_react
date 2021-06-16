@@ -29,6 +29,7 @@ const CarManagement = () => {
     const showModal = (carId) => () => {
         setIsModalVisible(true);
         const carInfo = data.find(item => item.key === carId)
+        console.log(carInfo)
         setCarInfo(carInfo)
     };
     const handleOk = () => {
