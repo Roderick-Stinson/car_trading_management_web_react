@@ -13,7 +13,7 @@ export const carMapper = {
 }
 
 export const userMapper = {
-    userid: '用户ID',
+    id: '用户ID',
     username: '用户名',
     regDate: '注册时间',
     phone: '手机号',
