@@ -1,8 +1,12 @@
 import axios from 'axios'
 import storage from "sweet-storage";
 import {message} from 'antd'
-import {history} from "../utils/history";
 import {isLogin} from "./login";
+import {HashRouter} from "react-router-dom";
+import {removeUsername} from "../reducer/UsernameReducer";
+import {removeToken} from "../reducer/TokenReducer";
+
+const router = new HashRouter()
 
 const $http = axios.create({
     baseURL: '',
@@ -25,15 +29,18 @@ $http.interceptors.request.use(function (config) {
 $http.interceptors.response.use(
     response => {
         console.log('response', response)
-        const status = response.data.code
-        if (status === 401) {
+        if (response.data['code'] === 401) {
             // 未登录去重定向登录页面
-            console.log('401 not login')
+            message.error('401 not login')
             // history.push('/CarManagement');
-            console.log(history)
+            console.log('router', router)
         }
-        if (status === 403) {
-            console.log('403 Have no permission!')
+        if (response.data === '<403 FORBIDDEN Forbidden,[]>') {
+            removeToken()
+            removeUsername()
+            message.error('403 Have no permission!')
+            console.log('router', router)
+            router.history.push('/login')
         }
         return response
     }

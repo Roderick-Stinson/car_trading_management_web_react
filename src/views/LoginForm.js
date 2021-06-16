@@ -16,7 +16,7 @@ export const LoginForm = () => {
             message.success({content: '已登陆', key: 'logged in'})
             history.push('/')
         }
-    }, [])
+    }, [history])
     const onFinishLogin = (values) => {
         LoginToServer(values['username'], values['password']).then(
             res => {
