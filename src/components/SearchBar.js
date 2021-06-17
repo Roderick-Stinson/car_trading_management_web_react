@@ -54,10 +54,10 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
     const userBtnGroup = () => (
         <>
             <Col>
-                {getUsername()} logged in
+                {getUsername()}已登陆
             </Col>
             <Col>
-                <Button onClick={onSignOut}>sign out</Button>
+                <Button onClick={onSignOut}>登出</Button>
             </Col>
         </>
     )
@@ -66,7 +66,7 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
         <>
             <Row justify="end" gutter={[16, 16]}>
                 <Col>
-                    <Search placeholder={placeHolder} style={{width: '200px', marginTop: "15px", marginLeft: "1000px"}}
+                    <Search placeholder={placeHolder} style={{width: '200px', marginTop: "15px", marginLeft: "800px"}}
                             allowClear enterButton/>
                 </Col>
                 <Col>
