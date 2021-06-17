@@ -8,25 +8,13 @@ import {useHistory} from 'react-router'
 import {getUsername, isLogin} from "../services/login";
 
 export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
-    let btnGroup;
-    if (btnAddStr !== undefined) {
-        btnGroup = (
-            <Space>
-                <Button type="primary" onClick={btnAddOnClick}>
-                    {btnAddStr}
-                </Button>
-                <Button type="primary">
-                    导出csv
-                </Button>
-            </Space>
-        )
-    } else {
-        btnGroup = (
+    let btnGroup = (
+        <Space>
             <Button type="primary">
                 导出csv
             </Button>
-        )
-    }
+        </Space>
+    )
     useEffect(() => {
         if (isLogin()) {
             _setLoginStatus(true)

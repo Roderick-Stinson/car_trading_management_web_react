@@ -1,137 +1,39 @@
 import {Upload} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-import {useEffect, useMemo, useState} from "react";
+import {useState} from "react";
+import Modal from "antd/es/modal/Modal";
 
-// function getBase64(file) {
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.onload = () => resolve(reader.result);
-//         reader.onerror = error => reject(error);
-//     });
-// }
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 
 export const UploadPicture = () => {
-
-    // const [previewVisible, setPreviewVisible] = useState(false)
-    // const [previewImage, setPreviewImage] = useState('')
-    // const [previewTitle, setPreviewTitle] = useState('')
+    const [previewVisible, setPreviewVisible] = useState(false)
+    const [previewImage, setPreviewImage] = useState('')
+    const [previewTitle, setPreviewTitle] = useState('')
     const [fileList, setFileList] = useState([])
 
-    // setPreviewVisible(true)
+    const handleCancel = () => setPreviewVisible(false)
 
-    // setPreviewImage(file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-    //
-    // setPreviewTitle()
+    const handlePreview = async file => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
 
-    const testFileList = useMemo(() => [
-        {
-            uid: '-1',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-2',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-3',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-4',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-xxx',
-            percent: 50,
-            name: 'image.png',
-            status: 'uploading',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-5',
-            name: 'image.png',
-            status: 'error',
-        },
-    ], [])
+        setPreviewImage(file.url || file.preview);
+        setPreviewVisible(true);
+        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
+    };
 
-    useEffect(() => {
-        setFileList(testFileList)
-    }, [testFileList])
-
-
-    // state = {
-    //     previewVisible: false,
-    //     previewImage: '',
-    //     previewTitle: '',
-    //     fileList: [
-    //         {
-    //             uid: '-1',
-    //             name: 'image.png',
-    //             status: 'done',
-    //             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //         },
-    //         {
-    //             uid: '-2',
-    //             name: 'image.png',
-    //             status: 'done',
-    //             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //         },
-    //         {
-    //             uid: '-3',
-    //             name: 'image.png',
-    //             status: 'done',
-    //             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //         },
-    //         {
-    //             uid: '-4',
-    //             name: 'image.png',
-    //             status: 'done',
-    //             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //         },
-    //         {
-    //             uid: '-xxx',
-    //             percent: 50,
-    //             name: 'image.png',
-    //             status: 'uploading',
-    //             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    //         },
-    //         {
-    //             uid: '-5',
-    //             name: 'image.png',
-    //             status: 'error',
-    //         },
-    //     ],
-    // };
-
-    // const handleCancel = () => this.setState({previewVisible: false});
-
-    // const handlePreview = async file => {
-    //     if (!file.url && !file.preview) {
-    //         file.preview = await getBase64(file.originFileObj);
-    //     }
-    //
-    //     this.setState({
-    //         previewImage: file.url || file.preview,
-    //         previewVisible: true,
-    //         previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-    //     });
-    // };
-
-    const handleChange = (
-
-        // console.log('onchange')
-        {fileList}) => setFileList({fileList}
-
-    );
+    const handleChange = ({fileList}) => {
+        let updatedFileList = fileList
+        setFileList(updatedFileList)
+    };
 
     const uploadButton = (
         <div>
@@ -142,25 +44,29 @@ export const UploadPicture = () => {
     return (
         <>
             <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action="/api/image/create"
                 listType="picture-card"
-                fileList={testFileList}
-                // onPreview={this.handlePreview}
+                fileList={fileList}
+                data={
+                    {
+                        'index': 1,
+                        'carId': 65536
+                    }
+                }
+                onPreview={handlePreview}
                 onChange={handleChange}
             >
-                {fileList.length >= 8 ? null : uploadButton}
+                {fileList.length >= 6 ? null : uploadButton}
             </Upload>
-            {/*<Modal*/}
-            {/*    visible={previewVisible}*/}
-            {/*    title={previewTitle}*/}
-            {/*    footer={null}*/}
-            {/*    onCancel={this.handleCancel}*/}
-            {/*>*/}
-            {/*    <img alt="example" style={{width: '100%'}} src={previewImage}/>*/}
-            {/*</Modal>*/}
+            <Modal
+                visible={previewVisible}
+                title={previewTitle}
+                footer={null}
+                onCancel={handleCancel}
+            >
+                <img alt="example" style={{width: '100%'}} src={previewImage}/>
+            </Modal>
         </>
     );
 
-}
-//
-// ReactDOM.render(<PicturesWall/>, mountNode);
+};

@@ -96,28 +96,7 @@ const BookingSellManagement = () => {
 
     useEffect(
         () => {
-            // UserSvc.getAll().then(res => {
-            //     console.log(res)
-            //     res.sort((a, b) => a['id'] - b['id'])
-            //     res.forEach(u => {
-            //         u.regDate = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
-            //         console.log(u.regDate)
-            //     })
-            //     setUsers(res)
-            // }).catch(err => {
-            //     // message.error({content: "请先登录", key: "user service login error"})
-            //     console.log('err', err)
-            // })
-            let testLists =[
-                // {
-                //     key: '1',
-                //     createTime:'2020/06/07-16:37:54',
-                //     id: '001',
-                //     state:'进行中',
-                //     username: 'siyuan',
-                //     phone: '18008384601',
-                // }
-            ]
+            let testLists =[]
 
             $http.get('/api/car/list',{params: {status: 0}})
                 .then(res => {
