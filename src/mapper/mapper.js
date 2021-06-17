@@ -16,6 +16,8 @@ export const userMapper = {
     id: '用户ID',
     username: '用户名',
     regDate: '注册时间',
+    //仅用于显示的注册时间
+    regDateStr: '注册时间',
     phone: '手机号',
 }
 
@@ -26,3 +28,4 @@ export const BookingSellMapper = {
     username: '用户名',
     phone: '手机号',
 }
+export const orderMapper = {}

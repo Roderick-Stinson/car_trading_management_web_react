@@ -79,7 +79,7 @@ const UserManagement = () => {
             },
         },
     ];
-    let colIndexes = ['id', 'username', 'regDate', 'phone'].reverse()
+    let colIndexes = ['id', 'username', 'regDateStr', 'phone'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})
@@ -94,15 +94,13 @@ const UserManagement = () => {
     useEffect(
         () => {
             UserSvc.getAll().then(res => {
-                console.log(res)
                 res.sort((a, b) => a['id'] - b['id'])
                 res.forEach(u => {
-                    u.regDate = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
-                    console.log(u.regDate)
+                    //TODO(to modify it)
+                    u.regDateStr = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
                 })
                 setUsers(res)
             }).catch(err => {
-                // message.error({content: "请先登录", key: "user service login error"})
                 console.log('err', err)
             })
         }, [])

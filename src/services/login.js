@@ -17,3 +17,8 @@ export const isLogin = () => {
 export const getUsername = () => {
     return storage.get('Username')
 }
+
+export const onLoginPage = () => {
+    return window.location.href.indexOf('login') !== -1
+
+}

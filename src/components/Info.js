@@ -18,8 +18,8 @@ const genFields = (_fields, disableEditFields, mapper) => {
 }
 export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
 
-    let _fields = ['id', 'username', 'regDate', 'phone']
-    let disableEditFields = ['id', 'regDate']
+    let _fields = ['id', 'username', 'regDateStr', 'phone']
+    let disableEditFields = ['id', 'regDateStr']
     const fields = genFields(_fields, disableEditFields, userMapper)
     return (
         <Modal
@@ -36,7 +36,7 @@ export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
                     fields.map((item) => {
                         return (
                             <Descriptions.Item label={item.label} key={item.key}>
-                                <EditableField fieldFrom='car'
+                                <EditableField fieldFrom='user'
                                                fieldKey={item.key}
                                                value={userInfo[item.dataIndex]}
                                                originObject={userInfo}

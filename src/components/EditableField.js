@@ -4,24 +4,27 @@ import {useState} from "react";
 import carSvc from "../services/car";
 import userSvc from "../services/user";
 import orderSvc from "../services/order";
-import {carMapper} from '../mapper/mapper'
+import {carMapper, orderMapper, userMapper} from '../mapper/mapper'
 
 export const EditableField = ({fieldFrom, fieldKey, originObject, value, disableEdit}) => {
-    console.log(disableEdit)
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
     const [FieldValue, setFieldValue] = useState(value)
     //设置使用的服务模块
     let svc;
+    let mapper;
     switch (fieldFrom) {
         case 'car':
             svc = carSvc
+            mapper = carMapper
             break
         case 'user':
             svc = userSvc
+            mapper = userMapper
             break
         case 'order':
             svc = orderSvc
+            mapper = orderMapper
             break
         default:
             console.log('service case error')
@@ -40,10 +43,9 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, disable
     }
 
     const onFinish = (values) => {
-        // let originValue = value
         const id = originObject.id
-        let newObject = {...originObject}
         let newValue = values.input
+        let newObject = {}
         newObject[fieldKey] = newValue
 
         svc.update(id, newObject).then(
@@ -53,7 +55,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, disable
                 notification.open({
                     message: '修改成功',
                     description:
-                        `"${carMapper[fieldKey]}" 字段已经从 ${originObject[fieldKey]} 修改为 ${newValue}`,
+                        `"${mapper[fieldKey]}" 字段已经从 ${originObject[fieldKey]} 修改为 ${newValue}`,
                     icon: <CheckOutlined style={{color: 'green'}}/>,
                 });
             }

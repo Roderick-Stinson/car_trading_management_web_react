@@ -1,6 +1,6 @@
 import {Upload} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 // function getBase64(file) {
 //     return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ export const UploadPicture = () => {
     //
     // setPreviewTitle()
 
-    let testFileList = [
+    const testFileList = useMemo(() => [
         {
             uid: '-1',
             name: 'image.png',
@@ -61,11 +61,11 @@ export const UploadPicture = () => {
             name: 'image.png',
             status: 'error',
         },
-    ]
+    ], [])
 
     useEffect(() => {
         setFileList(testFileList)
-    }, [])
+    }, [testFileList])
 
 
     // state = {

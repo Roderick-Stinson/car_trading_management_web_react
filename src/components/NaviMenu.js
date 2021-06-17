@@ -2,7 +2,7 @@ import {Link, Redirect, useHistory} from 'react-router-dom'
 import {Col, Menu, message, Row} from 'antd';
 import {AppstoreOutlined, KeyOutlined, SnippetsOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
-import {isLogin} from "../services/login";
+import {isLogin, onLoginPage} from "../services/login";
 
 const NaviMenu = () => {
     const [current, setCurrent] = useState('')
@@ -34,7 +34,7 @@ const NaviMenu = () => {
         setRoute(route.pathname)
     })
     const linkOrLogin = (url) => {
-        if (isLogin()) {
+        if (isLogin() && !onLoginPage()) {
             return (<Link to={url}/>)
         } else {
             message.error({content: "请先登陆", key: 'not-login'})
