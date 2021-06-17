@@ -2,11 +2,10 @@ import {useEffect, useState} from "react";
 import {Button, message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 
-import {AddCar, AddUser} from "../components/AddInfo";
-import {UserInfo} from "../components/Info";
+import {AddCar} from "../components/AddInfo";
 import {SearchBar} from "../components/SearchBar";
 import ListsSvc from "../services/user"
-import {BookingSellMapper, userMapper} from "../mapper/mapper";
+import {BookingSellMapper} from "../mapper/mapper";
 
 const BookingSellManagement = () => {
     const [lists, setLists] = useState([]);
@@ -83,7 +82,7 @@ const BookingSellManagement = () => {
             },
         },
     ];
-    let colIndexes = ['createTime','state' ,'id', 'username', 'phone'].reverse()
+    let colIndexes = ['id', 'createTime', 'state', 'username', 'phone'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})

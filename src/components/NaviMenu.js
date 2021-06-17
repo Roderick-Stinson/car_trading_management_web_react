@@ -12,28 +12,32 @@ const NaviMenu = () => {
     const handleClick = (e) => {
         setCurrent(e.key)
     }
+    const menuUrls = ['car', 'user', 'order', 'booking']
+    const menuTexts = ['车辆管理', '用户管理', '订单管理', '预约卖车管理']
+    const icons = [(<WalletOutlined/>), (<AppstoreOutlined/>), (<TransactionOutlined/>), (<SnippetsOutlined/>)]
+    const menuItems =
+        menuUrls.map((url, idx) => (
+            {
+                url: "/" + url,
+                icon: icons[idx],
+                key: "/" + url,
+                text: menuTexts[idx]
+            }
+        ))
 
     useEffect(() => {
-        switch (route) {
-            case '/CarManagement':
-                setCurrent('sell')
-                break;
-            case '/OrderManagement':
-                setCurrent('order')
-                break
-            case '':
-                setCurrent('')
-                break
-            default:
-                setCurrent('')
-                break
-        }
+        menuItems.map((menuItem) => {
+            if (route === menuItem.url) {
+                setCurrent(menuItem.key)
+            }
+        })
     }, [route])
 
     history.listen(route => {
         setRoute(route.pathname)
     })
     const linkOrLogin = (url) => {
+        console.log(url)
         if (isLogin() && !onLoginPage()) {
             return (<Link to={url}/>)
         } else {
@@ -41,6 +45,7 @@ const NaviMenu = () => {
             return (<Redirect to={'/login'}/>)
         }
     }
+
     return (
         <Row justify="space-around" align="middle">
             <Col span={23}>
@@ -50,26 +55,16 @@ const NaviMenu = () => {
                     theme="dark"
                     mode={"vertical"}>
 
-                    <Menu.Item key="" icon={<WalletOutlined/>}>
-                        {linkOrLogin('/')}
-                        {/*<Link to={'/'}/>*/}
-                        用户管理
-                    </Menu.Item>
-                    <Menu.Item key="sell" icon={<AppstoreOutlined/>}>
-                        {linkOrLogin('/CarManagement')}
-                        {/*<Link to={'/CarManagement'}/>*/}
-                        车辆管理
-                    </Menu.Item>
-                    <Menu.Item key="order" icon={<TransactionOutlined/>}>
-                        {linkOrLogin('/OrderManagement')}
-                        {/*<Link to={'/orderManagement'}/>*/}
-                        订单管理
-                    </Menu.Item>
-                    <Menu.Item key="booking" icon={<SnippetsOutlined />}>
-                        {linkOrLogin('/BookingSellManagement')}
-                        {/*<Link to={'/orderManagement'}/>*/}
-                        预约卖车管理
-                    </Menu.Item>
+                    {menuItems.map(item => {
+                            console.log(item)
+                            return (
+                                <Menu.Item key={item.key} icon={item.icon}>
+                                    {linkOrLogin(item.url)}
+                                    {item.text}
+                                </Menu.Item>
+                            )
+                        }
+                    )}
                     <Menu.Item key="login" icon={<KeyOutlined/>}>
                         <Link to={'/login'}/>
                         登录

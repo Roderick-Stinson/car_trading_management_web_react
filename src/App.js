@@ -6,7 +6,6 @@ import UserManagement from "./views/UserManagement";
 import CarManagement from "./views/CarManagement";
 import OrderManagement from "./views/OrderManagement";
 import BookingSellManagement from "./views/BookingSellManagement";
-import {history} from './utils/history'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 
 import {Layout} from 'antd';
@@ -17,7 +16,7 @@ const {Sider, Content} = Layout;
 
 function App() {
     return (
-        <Router history={history}>
+        <Router>
             <Layout style={{minHeight: '100vh'}}>
                 <Sider>
                     <div className="logo" style={{
@@ -32,7 +31,7 @@ function App() {
                 </Sider>
                 <Content>
                     <Switch>
-                        <Route component={UserManagement} exact path={'/'}/>
+                        <Route component={UserManagement} exact path={'/UserManagement'}/>
                         <Route component={CarManagement} exact path={'/CarManagement'}/>
                         <Route component={OrderManagement} exact path={'/OrderManagement'}/>
                         <Route component={BookingSellManagement} exact path={'/BookingSellManagement'}/>
