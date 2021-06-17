@@ -24,6 +24,9 @@ const NaviMenu = () => {
             case '':
                 setCurrent('')
                 break
+            case '/BookingSellManagement':
+                setCurrent('booking')
+                break
             default:
                 setCurrent('')
                 break

@@ -29,3 +29,18 @@ export const BookingSellMapper = {
     phone: '手机号',
 }
 export const orderMapper = {}
+
+export const sellCarMapper = (status) => {
+    switch (status) {
+        case 0:
+            return '待上传'
+        case 1:
+            return '进行中'
+        case 2:
+            return '已完成'
+        case 3:
+            return '已取消'
+        default:
+            return '未知'
+    }
+}

@@ -28,7 +28,6 @@ $http.interceptors.request.use(function (config) {
 // 添加响应拦截器
 $http.interceptors.response.use(
     response => {
-        console.log('response', response)
         if (response.data['code'] === 401) {
             // 未登录去重定向登录页面
             message.error({content: '未登录', key: '401'})

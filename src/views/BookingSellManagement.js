@@ -2,15 +2,14 @@ import {useEffect, useState} from "react";
 import {Button, message, Popconfirm, Space, Table} from "antd";
 import Layout, {Content, Header} from "antd/es/layout/layout";
 
-import {AddCar, AddUser} from "../components/AddInfo";
-import {UserInfo} from "../components/Info";
+import {AddCar} from "../components/AddInfo";
 import {SearchBar} from "../components/SearchBar";
 import ListsSvc from "../services/user"
-import {BookingSellMapper, userMapper} from "../mapper/mapper";
+import {BookingSellMapper, sellCarMapper} from "../mapper/mapper";
+import $http from "../services/http_util";
 
 const BookingSellManagement = () => {
     const [lists, setLists] = useState([]);
-    const [modelUserInfo, setUserInfo] = useState({})
 
     //列表终止按钮的确认和取消函数
     function confirmStop(e) {
@@ -95,16 +94,6 @@ const BookingSellManagement = () => {
         }
     })
 
-    let testLists =[
-        {
-            createTime:'2020/06/07-16:37:54',
-            id: '001',
-            state:'进行中',
-            username: 'siyuan',
-            phone: '18008384601',
-        }
-
-    ]
     useEffect(
         () => {
             // UserSvc.getAll().then(res => {
@@ -119,7 +108,34 @@ const BookingSellManagement = () => {
             //     // message.error({content: "请先登录", key: "user service login error"})
             //     console.log('err', err)
             // })
-            setLists(testLists)
+            let testLists =[
+                // {
+                //     key: '1',
+                //     createTime:'2020/06/07-16:37:54',
+                //     id: '001',
+                //     state:'进行中',
+                //     username: 'siyuan',
+                //     phone: '18008384601',
+                // }
+            ]
+
+            $http.get('/api/car/list',{params: {status: 0}})
+                .then(res => {
+                    console.log(res.data)
+                    res.data.forEach(item => {
+                        testLists.push({
+                            key: item['id'],
+                            createTime: '2020/06/07-16:37:54',
+                            id: item['id'],
+                            state: sellCarMapper(item['status']),
+                            username: item['username'],
+                            phone: '18008384601',
+                        })
+                    })
+                    setLists(testLists)
+            })
+
+            // eslint-disable-next-line
         }, [])
 
     return (
@@ -136,10 +152,7 @@ const BookingSellManagement = () => {
                 <Table columns={columns} dataSource={lists}/>
             </Content>
             <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
-
         </Layout>
-
-
     )
 }
 
