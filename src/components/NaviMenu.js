@@ -21,7 +21,7 @@ const NaviMenu = () => {
                 url: "/" + url,
                 icon: icons[idx],
                 key: "/" + url,
-                text: menuTexts[idx]
+                text: menuTexts[idx],
             }
         ))
 
