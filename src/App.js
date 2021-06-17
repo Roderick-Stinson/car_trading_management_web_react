@@ -5,6 +5,7 @@ import NaviMenu from "./components/NaviMenu";
 import UserManagement from "./views/UserManagement";
 import CarManagement from "./views/CarManagement";
 import OrderManagement from "./views/OrderManagement";
+import BookingSellManagement from "./views/BookingSellManagement";
 import {history} from './utils/history'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 
@@ -33,6 +34,7 @@ function App() {
                     <Route component={UserManagement} exact path={'/'}/>
                     <Route component={CarManagement} exact path={'/CarManagement'}/>
                     <Route component={OrderManagement} exact path={'/OrderManagement'}/>
+                    <Route component={BookingSellManagement} exact path={'/BookingSellManagement'}/>
                     <Route component={LoginForm} exact path={'/login'}/>
                 </Content>
             </Layout>

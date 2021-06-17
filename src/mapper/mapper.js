@@ -18,3 +18,11 @@ export const userMapper = {
     regDate: '注册时间',
     phone: '手机号',
 }
+
+export const BookingSellMapper = {
+    createTime:'创建时间',
+    id: '预约单号',
+    state:'状态',
+    username: '用户名',
+    phone: '手机号',
+}

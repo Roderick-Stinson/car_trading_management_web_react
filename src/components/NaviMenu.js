@@ -1,6 +1,6 @@
 import {Link, Redirect, useHistory} from 'react-router-dom'
 import {Col, Menu, message, Row} from 'antd';
-import {AppstoreOutlined, KeyOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
+import {AppstoreOutlined, KeyOutlined, SnippetsOutlined, TransactionOutlined, WalletOutlined} from '@ant-design/icons';
 import {useEffect, useState} from "react";
 import {isLogin} from "../services/login";
 
@@ -64,6 +64,11 @@ const NaviMenu = () => {
                         {linkOrLogin('/OrderManagement')}
                         {/*<Link to={'/orderManagement'}/>*/}
                         订单管理
+                    </Menu.Item>
+                    <Menu.Item key="booking" icon={<SnippetsOutlined />}>
+                        {linkOrLogin('/BookingSellManagement')}
+                        {/*<Link to={'/orderManagement'}/>*/}
+                        预约卖车管理
                     </Menu.Item>
                     <Menu.Item key="login" icon={<KeyOutlined/>}>
                         <Link to={'/login'}/>
