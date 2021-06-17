@@ -5,6 +5,7 @@ import carSvc from "../services/car";
 import userSvc from "../services/user";
 import orderSvc from "../services/order";
 import {carMapper, orderMapper, userMapper} from '../mapper/mapper'
+import {require_rule} from "../utils/form_rules";
 
 export const EditableField = ({fieldFrom, fieldKey, originObject, value, disableEdit}) => {
     const [visible, setVisible] = useState(false);
@@ -77,6 +78,7 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, disable
                     onFinish={onFinish}
                     initialValues={{'input': FieldValue}}>
                     <Form.Item
+                        rules={[require_rule]}
                         name='input'>
                         <Input onFocus={handleHold}
                                onBlur={handleNotHold}
