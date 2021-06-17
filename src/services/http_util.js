@@ -31,14 +31,14 @@ $http.interceptors.response.use(
         console.log('response', response)
         if (response.data['code'] === 401) {
             // 未登录去重定向登录页面
-            message.error('401 not login')
+            message.error({content: '未登录', key: '401'})
             // history.push('/CarManagement');
             console.log('router', router)
         }
         if (response.data === '<403 FORBIDDEN Forbidden,[]>') {
             removeToken()
             removeUsername()
-            message.error('403 Have no permission!')
+            message.error({content: '该用户没有权限，已退出登陆', key: '403'})
             console.log('router', router)
             router.history.push('/login')
         }

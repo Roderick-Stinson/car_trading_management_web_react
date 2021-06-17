@@ -18,7 +18,7 @@ const NaviMenu = () => {
             case '/CarManagement':
                 setCurrent('sell')
                 break;
-            case '/orderManagement':
+            case '/OrderManagement':
                 setCurrent('order')
                 break
             case '':
@@ -37,7 +37,7 @@ const NaviMenu = () => {
         if (isLogin()) {
             return (<Link to={url}/>)
         } else {
-            message.error({content: "请先登陆", key: 'login-error'})
+            message.error({content: "请先登陆", key: 'not-login'})
             return (<Redirect to={'/login'}/>)
         }
     }

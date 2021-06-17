@@ -102,7 +102,7 @@ const UserManagement = () => {
                 })
                 setUsers(res)
             }).catch(err => {
-                message.error({content: "请先登录", key: "user service login error"})
+                // message.error({content: "请先登录", key: "user service login error"})
                 console.log('err', err)
             })
         }, [])

@@ -40,7 +40,6 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, disable
     }
 
     const onFinish = (values) => {
-        debugger
         // let originValue = value
         const id = originObject.id
         let newObject = {...originObject}
