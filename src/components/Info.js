@@ -36,7 +36,8 @@ export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
                     fields.map((item) => {
                         return (
                             <Descriptions.Item label={item.label} key={item.key}>
-                                <EditableField fieldFrom='user'
+                                <EditableField key={item.key}
+                                               fieldFrom='user'
                                                fieldKey={item.key}
                                                value={userInfo[item.dataIndex]}
                                                originObject={userInfo}

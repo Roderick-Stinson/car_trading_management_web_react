@@ -34,6 +34,7 @@ const UserManagement = () => {
     //查看详情对应的弹窗显示关闭
     const [isModalVisible, setIsModalVisible] = useState(false);
     const showModal = (carId) => () => {
+        console.log(carId)
         setIsModalVisible(true);
         const userInfo = users.find(item => item.key === carId)
         setUserInfo(userInfo)
@@ -56,7 +57,6 @@ const UserManagement = () => {
     const handleCancelAdd = () => {
         setIsModalVisibleAdd(false);
     };
-
     const columns = [
         {
             title: '操作',
@@ -90,6 +90,7 @@ const UserManagement = () => {
             item.title = userMapper[item.dataIndex]
         }
     })
+    console.log(columns)
 
     useEffect(
         () => {
@@ -98,6 +99,7 @@ const UserManagement = () => {
                 res.forEach(u => {
                     //TODO(to modify it)
                     u.regDateStr = `${u.regDate['year']}/${u.regDate['monthValue']}/${u.regDate['dayOfMonth']}`
+                    u.key = u.id
                 })
                 setUsers(res)
             }).catch(err => {

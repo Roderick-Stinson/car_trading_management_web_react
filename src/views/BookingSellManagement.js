@@ -82,7 +82,7 @@ const BookingSellManagement = () => {
             },
         },
     ];
-    let colIndexes = ['createTime','state' ,'id', 'username', 'phone'].reverse()
+    let colIndexes = ['id', 'createTime', 'state', 'username', 'phone'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})

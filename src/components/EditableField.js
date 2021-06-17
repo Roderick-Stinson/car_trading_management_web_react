@@ -65,41 +65,44 @@ export const EditableField = ({fieldFrom, fieldKey, originObject, value, disable
             }
         )
     }
+    const popover = () => (
+        <Popover
+            placement="bottom"
+            visible={visible}
+            trigger="click"
+            destroyTooltipOnHide={true}
+            onVisibleChange={handleVisibleChange}
+            content={
+                <Form
+                    onFinish={onFinish}
+                    initialValues={{'input': FieldValue}}>
+                    <Form.Item
+                        name='input'>
+                        <Input onFocus={handleHold}
+                               onBlur={handleNotHold}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary"
+                                htmlType='submit'
+                        >
+                            修改
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button onClick={() => setVisible(false)}>
+                            取消
+                        </Button>
+                    </Form.Item>
+                </Form>
+            } title="修改字段">
+            <EditOutlined onClick={() => setVisible(true)}/>
+        </Popover>
+    )
     return (
         <Space>
             {FieldValue}
-            <Popover
-                placement="bottom"
-                visible={visible}
-                trigger="click"
-                destroyTooltipOnHide={true}
-                onVisibleChange={handleVisibleChange}
-                content={
-                    <Form
-                        onFinish={onFinish}
-                        initialValues={{'input': FieldValue}}>
-                        <Form.Item
-                            name='input'>
-                            <Input onFocus={handleHold}
-                                   onBlur={handleNotHold}
-                                   disabled={disableEdit}/>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary"
-                                    htmlType='submit'
-                                    disabled={disableEdit}>
-                                修改
-                            </Button>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button onClick={() => setVisible(false)}>
-                                取消
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                } title="修改字段">
-                <EditOutlined onClick={() => setVisible(true)}/>
-            </Popover>
+            {disableEdit ? (<></>) : popover()}
         </Space>
     )
 }
