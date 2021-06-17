@@ -37,7 +37,6 @@ const NaviMenu = () => {
         setRoute(route.pathname)
     })
     const linkOrLogin = (url) => {
-        console.log(url)
         if (isLogin() && !onLoginPage()) {
             return (<Link to={url}/>)
         } else {
@@ -55,15 +54,13 @@ const NaviMenu = () => {
                     theme="dark"
                     mode={"vertical"}>
 
-                    {menuItems.map(item => {
-                            console.log(item)
-                            return (
-                                <Menu.Item key={item.key} icon={item.icon}>
-                                    {linkOrLogin(item.url)}
-                                    {item.text}
-                                </Menu.Item>
-                            )
-                        }
+                    {menuItems.map(item =>
+                        (
+                            <Menu.Item key={item.key} icon={item.icon}>
+                                {linkOrLogin(item.url)}
+                                {item.text}
+                            </Menu.Item>
+                        )
                     )}
                     <Menu.Item key="login" icon={<KeyOutlined/>}>
                         <Link to={'/login'}/>

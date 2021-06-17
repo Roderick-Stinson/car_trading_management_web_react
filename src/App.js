@@ -31,10 +31,10 @@ function App() {
                 </Sider>
                 <Content>
                     <Switch>
-                        <Route component={UserManagement} exact path={'/UserManagement'}/>
-                        <Route component={CarManagement} exact path={'/CarManagement'}/>
-                        <Route component={OrderManagement} exact path={'/OrderManagement'}/>
-                        <Route component={BookingSellManagement} exact path={'/BookingSellManagement'}/>
+                        <Route component={UserManagement} exact path={'/user'}/>
+                        <Route component={CarManagement} exact path={'/car'}/>
+                        <Route component={OrderManagement} exact path={'/order'}/>
+                        <Route component={BookingSellManagement} exact path={'/booking'}/>
                         <Route component={LoginForm} exact path={'/login'}/>
                     </Switch>
                 </Content>
