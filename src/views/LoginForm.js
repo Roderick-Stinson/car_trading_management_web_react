@@ -13,7 +13,7 @@ export const LoginForm = () => {
     const history = useHistory()
     useEffect(() => {
         if (isLogin()) {
-            message.success({content: '已登陆', key: 'logged in'})
+            message.success({content: '已登录', key: 'logged in'})
             history.push('/')
         }
     }, [history])
@@ -37,7 +37,7 @@ export const LoginForm = () => {
                 <Card>
                     <Row justify={'center'}>
                         <Col style={{minWidth: "300px"}}>
-                            <h2>登陆到二手车管理后台</h2>
+                            <h2>登录到二手车管理后台</h2>
                             <Form
                                 name="normal_login"
                                 className="login-form"
@@ -68,7 +68,7 @@ export const LoginForm = () => {
 
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="login-form-button">
-                                        登陆
+                                        登录
                                     </Button>
                                 </Form.Item>
                             </Form>

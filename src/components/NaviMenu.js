@@ -37,7 +37,7 @@ const NaviMenu = () => {
         if (isLogin() && !onLoginPage()) {
             return (<Link to={url}/>)
         } else {
-            message.error({content: "请先登陆", key: 'not-login'})
+            message.error({content: "请先登录", key: 'not-login'})
             return (<Redirect to={'/login'}/>)
         }
     }
@@ -72,7 +72,7 @@ const NaviMenu = () => {
                     </Menu.Item>
                     <Menu.Item key="login" icon={<KeyOutlined/>}>
                         <Link to={'/login'}/>
-                        登陆
+                        登录
                     </Menu.Item>
                 </Menu>
             </Col>

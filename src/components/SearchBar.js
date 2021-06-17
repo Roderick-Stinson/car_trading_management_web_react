@@ -54,7 +54,7 @@ export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
     const userBtnGroup = () => (
         <>
             <Col>
-                {getUsername()}已登陆
+                {getUsername()}已登录
             </Col>
             <Col>
                 <Button onClick={onSignOut}>登出</Button>

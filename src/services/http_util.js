@@ -38,7 +38,7 @@ $http.interceptors.response.use(
         if (response.data === '<403 FORBIDDEN Forbidden,[]>') {
             removeToken()
             removeUsername()
-            message.error({content: '该用户没有权限，已退出登陆', key: '403'})
+            message.error({content: '该用户没有权限，已退出登录', key: '403'})
             console.log('router', router)
             router.history.push('/login')
         }
