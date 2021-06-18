@@ -6,14 +6,8 @@ import {removeUsername} from "../reducer/UsernameReducer";
 import {useHistory} from 'react-router'
 import {getUsername, isLogin} from "../services/login";
 
-export const SearchBar = ({placeHolder}) => {
-    let btnGroup = (
-        <Space>
-            <Button type="primary">
-                导出csv
-            </Button>
-        </Space>
-    )
+export const SearchBar = () => {
+
     useEffect(() => {
         if (isLogin()) {
             _setLoginStatus(true)
@@ -57,7 +51,6 @@ export const SearchBar = ({placeHolder}) => {
                 {/*            allowClear enterButton/>*/}
                 {/*</Col>*/}
                 <Col>
-                    {btnGroup}
                 </Col>
                 {loginStatus ? userBtnGroup() : loginBtn()}
             </Row>
