@@ -1,5 +1,4 @@
 import {Button, Col, Row, Space} from "antd";
-import Search from "antd/es/input/Search";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {removeToken} from "../reducer/TokenReducer";
@@ -53,10 +52,10 @@ export const SearchBar = ({placeHolder}) => {
     return (
         <>
             <Row justify="end" gutter={[16, 16]}>
-                <Col>
-                    <Search placeholder={placeHolder} style={{width: '200px', marginTop: "15px", marginLeft: "800px"}}
-                            allowClear enterButton/>
-                </Col>
+                {/*<Col>*/}
+                {/*    <Search placeholder={placeHolder} style={{width: '200px', marginTop: "15px", marginLeft: "800px"}}*/}
+                {/*            allowClear enterButton/>*/}
+                {/*</Col>*/}
                 <Col>
                     {btnGroup}
                 </Col>
