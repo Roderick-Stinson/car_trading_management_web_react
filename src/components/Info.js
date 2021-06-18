@@ -1,7 +1,7 @@
 import Modal from "antd/es/modal/Modal";
 import {Descriptions} from "antd";
 import {EditableField} from "./EditableField";
-import {carMapper, userMapper} from "../mapper/mapper";
+import {carMapper, orderMapper, userMapper} from "../mapper/mapper";
 
 const genFields = (_fields, disableEditFields, mapper) => {
     const fields = []
@@ -53,7 +53,6 @@ export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
 }
 
 export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
-    console.log('in car info', carInfo)
     const _fields = ['brand', 'model', 'year', 'version', 'price', 'mileage', 'sellPhone']
     let disableEditFields = ['sellPhone']
     const fields = genFields(_fields, disableEditFields, carMapper)
@@ -87,28 +86,37 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
     )
 }
 
-export const OrderInfo = ({visible, handleOk, handleCancel}) => {
-
+export const OrderInfo = ({orderInfo, visible, handleOk, handleCancel}) => {
+    const _fields = ['id', 'carId', 'buyerId', 'sellerId', 'price']
+    let disableEditFields = ['id', 'carId', 'buyerId', 'sellerId']
+    const fields = genFields(_fields, disableEditFields, orderMapper)
     return (
-            <Modal
-                visible={visible}
-                title="订单详情"
-                centered
-                destroyOnClose
-                onCancel={handleCancel}
-                onOk={handleOk}
-                width={1000}
-            >
-                <Descriptions layout="vertical">
-                    <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
-                    <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
-                    <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
-                    <Descriptions.Item label="Address" span={2}>
-                        No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Remark">empty</Descriptions.Item>
-                </Descriptions>,
-            </Modal>
+        <Modal
+            visible={visible}
+            title="订单详情"
+            centered
+            destroyOnClose
+            onCancel={handleCancel}
+            onOk={handleOk}
+            width={1000}
+        >
+            <Descriptions layout="vertical">
+                {
+                    fields.map((item) => {
+                        return (
+                            <Descriptions.Item label={item.label} key={item.key}>
+                                <EditableField fieldFrom='order'
+                                               fieldKey={item.key}
+                                               value={orderInfo[item.dataIndex]}
+                                               originObject={orderInfo}
+                                               disableEdit={item.disableEdit}
+                                />
+                            </Descriptions.Item>
+                        )
+                    })
+                }
+            </Descriptions>
+        </Modal>
     )
 }
 
