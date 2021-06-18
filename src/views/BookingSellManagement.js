@@ -48,7 +48,7 @@ const BookingSellManagement = () => {
             render: (record) => {
                 return (
                     <Space size="middle">
-                        <Button type="link" onClick={showModalAdd}>添加车辆</Button>
+                        <Button type="link" onClick={showModalAdd} disabled={record.state === '进行中'}>添加车辆</Button>
                         <Popconfirm
                             title="您确定要终止该预约?"
                             onConfirm={confirmStop}
