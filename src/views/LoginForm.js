@@ -33,10 +33,10 @@ export const LoginForm = () => {
 
     return (
         <Row justify={"center"} style={{height: '100vh'}} align={"middle"}>
-            <Col span={5}>
+            <Col span={6}>
                 <Card>
                     <Row justify={'center'}>
-                        <Col style={{minWidth: "300px"}}>
+                        <Col>
                             <h2>登录到二手车管理后台</h2>
                             <Form
                                 name="normal_login"
