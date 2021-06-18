@@ -1,4 +1,4 @@
-import {Button, Upload} from 'antd';
+import {Button, Upload, message} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {useState} from "react";
 import Modal from "antd/es/modal/Modal";
@@ -44,7 +44,6 @@ export const UploadPicture = ({carId}) => {
     );
 
     const handleUpload = () => {
-        console.log('onclick upload')
         for (let i = 0; i < fileList.length; i++) {
             let formData = new FormData()
             formData.append('imgFile', fileList[i].originFileObj)
@@ -53,12 +52,12 @@ export const UploadPicture = ({carId}) => {
             formData.append('carId', carId)
             console.log(formData.get('imgFile'))
             $http.post('/api/picture/create', formData)
-                .then(res => {
-
-                    console.log(res)
-                })
+                .then(()=>{})
+                .catch(err => {
+                    console.log(err)})
         }
         setFileList([])
+        message('上传成功')
     }
     return (
         <>

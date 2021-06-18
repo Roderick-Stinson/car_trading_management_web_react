@@ -85,8 +85,7 @@ const BookingSellManagement = () => {
     useEffect(
         () => {
             let testLists =[]
-
-            $http.get('/api/car/list')
+            $http.get('/api/car/list?count=20000',)
                 .then(res => {
                     res.data.forEach(item => {
                         testLists.push({
@@ -101,7 +100,6 @@ const BookingSellManagement = () => {
                     console.log(testLists)
                     setLists(testLists)
             })
-
             // eslint-disable-next-line
         }, [])
 
