@@ -4,7 +4,6 @@ import Layout, {Content, Header} from "antd/es/layout/layout";
 
 import {AddCar} from "../components/AddInfo";
 import {SearchBar} from "../components/SearchBar";
-import ListsSvc from "../services/user"
 import {BookingSellMapper, sellCarMapper} from "../mapper/mapper";
 import $http from "../services/http_util";
 
@@ -13,32 +12,22 @@ const BookingSellManagement = () => {
     const [currentRowKey, setCurrentRowKey] = useState(0)
 
     //列表终止按钮的确认和取消函数
-    function confirmStop(e) {
-        console.log(e);
-        /*TODO
-         *这里将预约订单状态变为已终止
-         */
+    function confirmStop() {
+        $http.patch('/api/car/'+currentRowKey, {"status": 3})
+            .then(()=>{})
+            .catch(err => {
+                console.log(err)})
         message.error('流程已终止！');
     }
-    function cancelStop(e) {
 
-    }
     //列表删除按钮的确认和取消函数
     const confirmDelete = (id) => () => {
-        ListsSvc.delete(id).then(data => {
-                // if (data.isPrototypeOf(Array))
-                console.log(data)
-                const listsAfterDelete = lists.filter(user => user.id !== id)
-                setLists(listsAfterDelete)
-            }
-        ).catch(reason => {
-            console.log(reason)
-        })
-        console.log(id)
+        $http.delete('/api/car/'+ id)
+            .then(()=>{})
+            .catch(err => {
+                console.log(err)})
     }
-    function cancelDelete(e) {
 
-    }
     //添加车辆的弹窗显示关闭
     const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
     const showModalAdd = () => {
@@ -63,7 +52,6 @@ const BookingSellManagement = () => {
                         <Popconfirm
                             title="您确定要终止该预约?"
                             onConfirm={confirmStop}
-                            onCancel={cancelStop}
                             okText="确认"
                             cancelText="取消"
                         >
@@ -72,7 +60,6 @@ const BookingSellManagement = () => {
                         <Popconfirm
                             title="您确定要删除该条数据?"
                             onConfirm={confirmDelete(record.id)}
-                            onCancel={cancelDelete}
                             okText="确认"
                             cancelText="取消"
                         >
@@ -99,19 +86,19 @@ const BookingSellManagement = () => {
         () => {
             let testLists =[]
 
-            $http.get('/api/car/list',{params: {status: 0}})
+            $http.get('/api/car/list')
                 .then(res => {
-                    console.log(res.data)
                     res.data.forEach(item => {
                         testLists.push({
                             key: item['id'],
-                            createTime: '2020/06/07-16:37:54',
+                            createTime: item['regDate']['year']+'-'+item['regDate']['monthValue']+'-'+item['regDate']['dayOfMonth'],
                             id: item['id'],
                             state: sellCarMapper(item['status']),
                             username: item['username'],
-                            phone: '18008384601',
+                            phone: item['phoneNumber'],
                         })
                     })
+                    console.log(testLists)
                     setLists(testLists)
             })
 
@@ -133,10 +120,9 @@ const BookingSellManagement = () => {
                     return {
                         onClick: () => {
                             setCurrentRowKey(record['id'])
-                            console.log('click', record)
                         }
                     }
-                }}/>
+                }} pagination={false}/>
             </Content>
             <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd} carId={currentRowKey}/>
         </Layout>

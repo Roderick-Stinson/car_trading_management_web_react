@@ -5,8 +5,8 @@
       <paths name="huaweicloud">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$/build" web="/" />
-            <mapping deploy="" local="$PROJECT_DIR$/node_modules/react-router" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$/node_modules/react-router" web="/" />
           </mappings>
         </serverdata>
       </paths>

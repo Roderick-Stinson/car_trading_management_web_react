@@ -47,7 +47,6 @@ export const UploadPicture = ({carId}) => {
         console.log('onclick upload')
         for (let i = 0; i < fileList.length; i++) {
             let formData = new FormData()
-            console.log(fileList[i])
             formData.append('imgFile', fileList[i].originFileObj)
             formData.append('index', i)
             formData.append('extName', fileList[i].type.split('/')[1])
@@ -55,6 +54,7 @@ export const UploadPicture = ({carId}) => {
             console.log(formData.get('imgFile'))
             $http.post('/api/picture/create', formData)
                 .then(res => {
+
                     console.log(res)
                 })
         }

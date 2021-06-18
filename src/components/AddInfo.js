@@ -1,8 +1,9 @@
 import Modal from "antd/es/modal/Modal";
-import {DatePicker, Form, Input, Select} from "antd";
+import {DatePicker, Form, Input, Select, message} from "antd";
 import {Option} from "antd/es/mentions";
 
 import {UploadPicture} from "./UploadPicture"
+import $http from "../services/http_util";
 
 export const AddUser = ({visible,handleOk, handleCancel}) => {
 
@@ -73,6 +74,21 @@ export const AddUser = ({visible,handleOk, handleCancel}) => {
 export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
 
     const [form] = Form.useForm();
+
+    const onFinish = (value) => {
+        try {
+            $http.patch('/api/car/' + carId,{
+                'brand': value.brand,
+                'mileage': parseInt(value.mileage),
+                'name': value.name,
+                'price': parseInt(value.price),
+                'regDate': value.regDate._d,
+            })
+        } catch (e) {
+            message.error('请输入数字')
+        }
+    }
+
     return (
         <>
             <Modal
@@ -83,6 +99,7 @@ export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
                 onOk={() => {
                     form.validateFields()
                         .then(() => {
+                            form.submit()
                             handleOk()
                         })
                 }
@@ -92,6 +109,7 @@ export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
                     form={form}
                     layout="vertical"
                     name="AddCar"
+                    onFinish={onFinish}
                 >
                     <Form.Item
                         label={"车名："}
@@ -146,15 +164,6 @@ export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
                         ]}
                     >
                         <Input  placeholder="请输入车辆行驶里程"/>
-                    </Form.Item>
-                    <Form.Item
-                        label={"变速箱："}
-                        name="gearBox"
-                    >
-                        <Select defaultValue="自动" style={{ width: 120 }}>
-                            <Option value="auto">自动</Option>
-                            <Option value="manual">手动</Option>
-                        </Select>
                     </Form.Item>
                     <Form.Item
                         label={"请上传车辆图片："}
@@ -243,7 +252,6 @@ export const AddOrder = ({visible,handleOk, handleCancel}) => {
                             <Option value="done">已完成</Option>
                         </Select>
                     </Form.Item>
-
                 </Form>
 
             </Modal>
