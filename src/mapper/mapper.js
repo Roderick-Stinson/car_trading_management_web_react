@@ -34,9 +34,19 @@ export const orderMapper = {
     sellerId: '卖家ID',
     carId: '车辆ID',
     tradeDateStr: '订单日期',
-    price: '买家报价'
+    price: '买家报价',
+    statusStr: '订单状态'
 }
-
+export const orderStatusMapper = (status) => {
+    switch (status) {
+        case 0:
+            return '进行中'
+        case 1:
+            return '已完成'
+        case 2:
+            return '已取消'
+    }
+}
 export const sellCarMapper = (status) => {
     switch (status) {
         case 0:

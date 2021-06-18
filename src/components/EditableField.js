@@ -8,7 +8,6 @@ import {carMapper, orderMapper, userMapper} from '../mapper/mapper'
 import {require_rule} from "../utils/form_rules";
 
 export const EditableField = ({fieldFrom, fieldKey, originObject, value, disableEdit, validation_rules}) => {
-    console.log('rules', validation_rules)
     const [visible, setVisible] = useState(false);
     const [holdPopover, setHold] = useState(false)
     const [FieldValue, setFieldValue] = useState(value)

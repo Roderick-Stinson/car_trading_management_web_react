@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {SearchBar} from "../components/SearchBar";
 import {AddOrder} from "../components/AddInfo";
 import OrderSvc from "../services/order"
-import {orderMapper} from "../mapper/mapper";
+import {orderMapper, orderStatusMapper} from "../mapper/mapper";
 
 const OrderManagement = () => {
     const [trades, setTrade] = useState([]);
@@ -20,6 +20,8 @@ const OrderManagement = () => {
                 res.forEach(u => {
                     u.tradeDateStr = `${u.tradeDate['year']}/${u.tradeDate['monthValue']}/${u.tradeDate['dayOfMonth']}`
                     u.key = u.id
+                    u.statusStr = orderStatusMapper(u.status)
+                    console.log(u.statusStr)
                 })
                 setTrade(res)
             }).catch(err => {
@@ -85,7 +87,7 @@ const OrderManagement = () => {
         },
     ];
 
-    let colIndexes = ['id', 'buyerId', 'carId', 'sellerId', 'tradeDateStr', 'price'].reverse()
+    let colIndexes = ['id', 'buyerId', 'carId', 'sellerId', 'tradeDateStr', 'price', 'statusStr'].reverse()
     colIndexes.forEach(item => {
         //往数组头部添加元素
         columns.unshift({dataIndex: item})
