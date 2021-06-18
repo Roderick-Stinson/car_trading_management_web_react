@@ -12,7 +12,7 @@ const usernameReducer = (state = {Username: 'None'}, action) => {
 }
 
 export const setUsername = (name) => {
-    storage.save('Username', name, 1440000)
+    storage.save('Username', name, 1440000*1000)
 
     return {
         type: 'SET_USERNAME',

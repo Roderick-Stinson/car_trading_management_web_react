@@ -28,14 +28,6 @@ const BookingSellManagement = () => {
                 console.log(err)})
     }
 
-    const confirmFinish = () => {
-        $http.patch('/api/car/'+currentRowKey, {"status": 2})
-            .then(()=>{})
-            .catch(err => {
-                console.log(err)})
-        message('流程已完成！');
-    }
-
     //添加车辆的弹窗显示关闭
     const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
     const showModalAdd = () => {
@@ -64,14 +56,6 @@ const BookingSellManagement = () => {
                             cancelText="取消"
                         >
                             <Button type="link">终止</Button>
-                        </Popconfirm>
-                        <Popconfirm
-                            title="您确定要终止该预约?"
-                            onConfirm={confirmFinish}
-                            okText="确认"
-                            cancelText="取消"
-                        >
-                            <Button type="link">完成</Button>
                         </Popconfirm>
                         <Popconfirm
                             title="您确定要删除该条数据?"
