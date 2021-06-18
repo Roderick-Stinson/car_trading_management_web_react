@@ -22,13 +22,20 @@ export const userMapper = {
 }
 
 export const BookingSellMapper = {
-    createTime:'创建时间',
+    createTime: '创建时间',
     id: '预约单号',
-    state:'状态',
+    state: '状态',
     username: '用户名',
     phone: '手机号',
 }
-export const orderMapper = {}
+export const orderMapper = {
+    id: '订单ID',
+    buyerId: '买家ID',
+    sellerId: '卖家ID',
+    carId: '车辆ID',
+    tradeDateStr: '订单日期',
+    price: '买家报价'
+}
 
 export const sellCarMapper = (status) => {
     switch (status) {
