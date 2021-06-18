@@ -129,7 +129,8 @@ export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
                         rules={[
                             {
                                 required: true,
-                                message: '报价不能为空',
+                                message: '报价不能为空且为数字',
+                                pattern: /^(0|[1-9][0-9]*)(\.\d+)?$/
                             },
                         ]}
                     >
@@ -159,7 +160,8 @@ export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
                         rules={[
                             {
                                 required: true,
-                                message: '行驶里程不能为空',
+                                message: '行驶里程不能为空且为正整数',
+                                pattern: /^(0|[1-9][0-9]*)(\.\d+)?$/
                             },
                         ]}
                     >

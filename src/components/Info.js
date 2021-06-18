@@ -2,7 +2,7 @@ import Modal from "antd/es/modal/Modal";
 import {Descriptions} from "antd";
 import {EditableField} from "./EditableField";
 import {carMapper, orderMapper, userMapper} from "../mapper/mapper";
-import {number_rule} from "../utils/form_rules";
+import {number_rule, tel_rule} from "../utils/form_rules";
 
 const genFields = (_fields, disableEditFields, rules, mapper) => {
     const fields = []
@@ -21,7 +21,7 @@ const genFields = (_fields, disableEditFields, rules, mapper) => {
 export const UserInfo = ({visible, userInfo, handleOk, handleCancel}) => {
 
     let _fields = ['id', 'username', 'regDateStr', 'phone']
-    let filed_rules = [[], [], [], []]
+    let filed_rules = [[], [], [], [tel_rule]]
     let disableEditFields = ['id', 'regDateStr']
     const fields = genFields(_fields, disableEditFields, filed_rules, userMapper)
     return (
@@ -96,7 +96,7 @@ export const CarInfo = ({visible, carInfo, handleOk, handleCancel}) => {
 export const OrderInfo = ({orderInfo, visible, handleOk, handleCancel}) => {
     const _fields = ['id', 'carId', 'buyerId', 'sellerId', 'price']
     let disableEditFields = ['id', 'carId', 'buyerId', 'sellerId']
-    let filed_rules = [[], [], [], [], []]
+    let filed_rules = [[], [], [], [], [number_rule]]
     const fields = genFields(_fields, disableEditFields, filed_rules, orderMapper)
     return (
         <Modal
