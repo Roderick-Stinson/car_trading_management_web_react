@@ -10,7 +10,7 @@ const router = new HashRouter()
 
 const $http = axios.create({
     baseURL: '',
-    timeout: 15000
+    timeout: 5000
 });
 
 // 添加请求拦截器

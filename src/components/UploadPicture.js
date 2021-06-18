@@ -1,7 +1,8 @@
-import {Upload} from 'antd';
+import {Button, Upload} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {useState} from "react";
 import Modal from "antd/es/modal/Modal";
+import $http from "../services/http_util";
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -12,7 +13,7 @@ function getBase64(file) {
     });
 }
 
-export const UploadPicture = () => {
+export const UploadPicture = ({carId}) => {
     const [previewVisible, setPreviewVisible] = useState(false)
     const [previewImage, setPreviewImage] = useState('')
     const [previewTitle, setPreviewTitle] = useState('')
@@ -41,23 +42,38 @@ export const UploadPicture = () => {
             <div style={{marginTop: 8}}>Upload</div>
         </div>
     );
+
+    const handleUpload = () => {
+        console.log('onclick upload')
+        for (let i = 0; i < fileList.length; i++) {
+            let formData = new FormData()
+            console.log(fileList[i])
+            formData.append('imgFile', fileList[i].originFileObj)
+            formData.append('index', i)
+            formData.append('extName', fileList[i].type.split('/')[1])
+            formData.append('carId', carId)
+            console.log(formData.get('imgFile'))
+            $http.post('/api/picture/create', formData)
+                .then(res => {
+                    console.log(res)
+                })
+        }
+        setFileList([])
+    }
     return (
         <>
             <Upload
                 action="/api/image/create"
                 listType="picture-card"
                 fileList={fileList}
-                data={
-                    {
-                        'index': 1,
-                        'carId': 65536
-                    }
-                }
                 onPreview={handlePreview}
                 onChange={handleChange}
+                beforeUpload={() => false}
+
             >
                 {fileList.length >= 6 ? null : uploadButton}
             </Upload>
+            <Button type={'primary'} onClick={handleUpload}>上传图片</Button>
             <Modal
                 visible={previewVisible}
                 title={previewTitle}
@@ -68,5 +84,4 @@ export const UploadPicture = () => {
             </Modal>
         </>
     );
-
 };

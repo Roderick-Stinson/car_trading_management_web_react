@@ -10,6 +10,7 @@ import $http from "../services/http_util";
 
 const BookingSellManagement = () => {
     const [lists, setLists] = useState([]);
+    const [currentRowKey, setCurrentRowKey] = useState(0)
 
     //列表终止按钮的确认和取消函数
     function confirmStop(e) {
@@ -128,9 +129,16 @@ const BookingSellManagement = () => {
                 minHeight: 280,
                 paddingTop: 0,
             }}>
-                <Table columns={columns} dataSource={lists}/>
+                <Table columns={columns} dataSource={lists} onRow={(record) => {
+                    return {
+                        onClick: () => {
+                            setCurrentRowKey(record['id'])
+                            console.log('click', record)
+                        }
+                    }
+                }}/>
             </Content>
-            <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd}/>
+            <AddCar visible={isModalVisibleAdd} handleOk={handleOkAdd} handleCancel={handleCancelAdd} carId={currentRowKey}/>
         </Layout>
     )
 }

@@ -70,7 +70,7 @@ export const AddUser = ({visible,handleOk, handleCancel}) => {
     )
 }
 
-export const AddCar = ({visible,handleOk, handleCancel}) => {
+export const AddCar = ({visible,handleOk, handleCancel, carId}) => {
 
     const [form] = Form.useForm();
     return (
@@ -159,7 +159,7 @@ export const AddCar = ({visible,handleOk, handleCancel}) => {
                     <Form.Item
                         label={"请上传车辆图片："}
                     >
-                        <UploadPicture></UploadPicture>
+                        <UploadPicture carId={carId === undefined? null: carId}></UploadPicture>
                     </Form.Item>
 
                 </Form>
