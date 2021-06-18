@@ -7,7 +7,7 @@ import {removeUsername} from "../reducer/UsernameReducer";
 import {useHistory} from 'react-router'
 import {getUsername, isLogin} from "../services/login";
 
-export const SearchBar = ({placeHolder, btnAddOnClick, btnAddStr}) => {
+export const SearchBar = ({placeHolder}) => {
     let btnGroup = (
         <Space>
             <Button type="primary">
