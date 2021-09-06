@@ -90,7 +90,7 @@ const BookingSellManagement = () => {
                     res.data.forEach(item => {
                         testLists.push({
                             key: item['id'],
-                            createTime: item['regDate']['year']+'-'+item['regDate']['monthValue']+'-'+item['regDate']['dayOfMonth'],
+                            // createTime: item['regDate']['year']+'-'+item['regDate']['monthValue']+'-'+item['regDate']['dayOfMonth'],
                             id: item['id'],
                             state: sellCarMapper(item['status']),
                             username: item['username'],
