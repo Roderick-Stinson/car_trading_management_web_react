@@ -24,7 +24,7 @@ export const LoginForm = () => {
 
                     dispatch(setToken(res.data.token))
                     dispatch(setUsername(values.username))
-                    history.push('/car')
+                    history.push('/mng/car')
                 } else {
                     console.log('login error')
                 }

@@ -31,7 +31,6 @@ $http.interceptors.response.use(
         if (response.data['code'] === 401) {
             // 未登录去重定向登录页面
             message.error({content: '未登录', key: '401'})
-            // history.push('/CarManagement');
             console.log('router', router)
         }
         if (response.data === '<403 FORBIDDEN Forbidden,[]>') {

@@ -65,9 +65,7 @@ jobs:
           password: ${{ secrets.HOST_PASSWORD }} # 服务器登录密码
           port: 22
           script: |
-            docker stop $(docker ps -q)
-            docker rm -f $(docker ps -a -q)
-            docker rmi -f $(docker images -q)
-            docker pull chivalryq/mshd-sc:$SHA
-            docker pull chivalryq/mshd:$SHA
-            docker run -d -p 3001:3000 chivalryq/car_trading_management_web_react:$SHA
+            docker stop manegement
+            docker rm -f management
+            docker rmi -f management
+            docker run -d -p 3001:3000 chivalryq/car_trading_management_web_react:$SHA --name=management
