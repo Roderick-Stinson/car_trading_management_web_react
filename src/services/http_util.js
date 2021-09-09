@@ -38,7 +38,7 @@ $http.interceptors.response.use(
             removeUsername()
             message.error({content: '该用户没有权限，已退出登录', key: '403'})
             console.log('router', router)
-            router.history.push('/login')
+            router.history.push('/mng/login')
         }
         return response
     }

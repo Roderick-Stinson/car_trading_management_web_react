@@ -22,12 +22,12 @@ export const SearchBar = () => {
         dispatch(removeToken())
         dispatch(removeUsername())
         toggleLoginStatus()
-        history.push('/login')
+        history.push('/mng/login')
     }
     const history = useHistory()
     const loginBtn = () => (
         <Col>
-            <Button onClick={() => history.push('/login')}>
+            <Button onClick={() => history.push('/mng/login')}>
                 login
             </Button>
         </Col>
